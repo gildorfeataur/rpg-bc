@@ -1,14 +1,12 @@
 import Head from "next/head";
-import Link from "next/link";
-import Image from "next/image";
-import styles from "./layout.module.css";
+import Header from "../header/header";
 
-const name = "Your Name";
-export const siteTitle = "Next.js Sample Website";
+const name = '[Your Name]'
+export const siteTitle = "RPG Bila Tserkva";
 
-export default function Layout({ children, home }) {
+export default function Layout({ children }) {
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta
@@ -23,49 +21,15 @@ export default function Layout({ children, home }) {
         />
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
+        <title>{siteTitle}</title>
       </Head>
+      <Header/>
+      <div className="container mx-auto flex">
+        {/* <aside>aside</aside> */}
 
-      <header className={styles.header}>
-        {home ? (
-          <>
-            <Image
-              priority
-              src="/images/profile.jpg"
-              className={styles.borderCircle}
-              height={144}
-              width={144}
-              alt=""
-            />
-            <h1 className={styles.heading2Xl}>{name}</h1>
-          </>
-        ) : (
-          <>
-            <Link href="/">
-              <Image
-                priority
-                src="/images/profile.jpg"
-                className={styles.borderCircle}
-                height={108}
-                width={108}
-                alt=""
-              />
-            </Link>
-            <h2 className={styles.headingLg}>
-              <Link href="/" className={styles.colorInherit}>
-                {name}
-              </Link>
-            </h2>
-          </>
-        )}
-      </header>
+        <main>{children}</main>
 
-      <main>{children}</main>
-
-      {!home && (
-        <div className={styles.backToHome}>
-          <Link href="/">← Back to home</Link>
-        </div>
-      )}
-    </div>
+      </div>
+    </>
   );
 }
