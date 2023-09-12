@@ -97,20 +97,20 @@ export default function Header() {
             </Transition>
           </Popover>
 
-          <Link href="/masters/masters" className="text-sm font-semibold leading-6 text-gray-900">
+          <Link href="/masters" className="text-sm font-semibold leading-6 text-gray-900">
             Майстри
           </Link>
-          <Link href="/rules/rules" className="text-sm font-semibold leading-6 text-gray-900">
+          <Link href="/rules" className="text-sm font-semibold leading-6 text-gray-900">
             Правила
           </Link>
-          <Link href="/links/links" className="text-sm font-semibold leading-6 text-gray-900">
+          <Link href="/links" className="text-sm font-semibold leading-6 text-gray-900">
             Корисне
           </Link>
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Логін <span aria-hidden="true">&rarr;</span>
-          </a>
+          <Link href="/admin" className="text-sm font-semibold leading-6 text-gray-900">
+            Адмін <span aria-hidden="true">&rarr;</span>
+          </Link>
         </div>
       </nav>
       <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
@@ -163,31 +163,31 @@ export default function Header() {
                   )}
                 </Disclosure>
                 <Link
-                  href="/masters/masters"
+                  href="/masters"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Майстри
                 </Link>
                 <Link
-                  href="/rules/rules"
+                  href="/rules"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Правила
                 </Link>
                 <Link
-                  href="/links/links"
+                  href="/links"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Корисне
                 </Link>
               </div>
               <div className="py-6">
-                <a
-                  href="#"
+                <Link
+                  href="/admin"
                   className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
-                  Логін
-                </a>
+                  Адмін
+                </Link>
               </div>
             </div>
           </div>

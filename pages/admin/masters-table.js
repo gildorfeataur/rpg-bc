@@ -1,0 +1,174 @@
+import React, { useEffect, useState } from "react";
+
+export default function MastersTable() {
+  const [masters, setMasters] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch("http://localhost:3000/api/masters", {
+        method: "GET",
+        headers: { Accept: "application/json" },
+      });
+      if (response.ok === true) {
+        const masters = await response.json();
+        setMasters(masters);
+        resetForm();
+      }
+    };
+
+    fetchData().catch((e) => {
+      console.error("An error occurred while fetching the data: ", e);
+    });
+  }, []);
+
+  async function createUser(event) {
+    event.preventDefault();
+
+    const response = await fetch("http://localhost:3000/api/masters", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: event.target.name.value,
+        description: event.target.description.value,
+        telegram: event.target.telegram.value,
+        facebook: event.target.facebook.value,
+      }),
+    });
+    if (response.ok === true) {
+      const refetch = await fetch("http://localhost:3000/api/masters", {
+        method: "GET",
+        headers: { Accept: "application/json" },
+      });
+      if (refetch.ok === true) {
+        const masters = await refetch.json();
+        setMasters(masters);
+        resetForm();
+      }
+    }
+  }
+
+  async function deleteUser(e) {
+    let id = e.target.getAttribute("data-id");
+    const response = await fetch("http://localhost:3000/api/masters/" + id, {
+      method: "DELETE",
+      headers: { Accept: "application/json" },
+    });
+    if (response.ok === true) {
+      const master = await response.json();
+      console.log(`User "${master.name}" was deleted! (id: ${master._id})`);
+
+      const refetch = await fetch("http://localhost:3000/api/masters", {
+        method: "GET",
+        headers: { Accept: "application/json" },
+      });
+      if (refetch.ok === true) {
+        const masters = await refetch.json();
+        setMasters(masters);
+      }
+    }
+  }
+
+  const resetForm = () => {
+    const form = document.getElementById("masterForm");
+    form.reset();
+  };
+
+  return (
+    <>
+      <form id="masterForm" name="masterForm" onSubmit={createUser}>
+        <div className="form-group mt-3">
+          <label htmlFor="name">Ім'я:</label>
+          <input
+            type="text"
+            className="form-input mt-0.5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            name="name"
+            id="name"
+            required
+          />
+        </div>
+
+        <div className="form-group mt-3">
+          <label htmlFor="telegram">Телеграм:</label>
+          <input
+            type="text"
+            className="form-input mt-0.5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            name="telegram"
+            id="telegram"
+          />
+        </div>
+
+        <div className="form-group mt-3">
+          <label htmlFor="facebook">Фейсбук:</label>
+          <input
+            type="url"
+            className="form-input mt-0.5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            name="facebook"
+            id="facebook"
+          />
+        </div>
+
+        <div className="form-group mt-3">
+          <label>Опис:</label>
+          <textarea
+            type="text"
+            className="form-input mt-0.5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            name="description"
+            required
+          />
+        </div>
+
+        <div className="flex gap-5 mt-5 mb-3">
+          <button
+            type="submit"
+            className="text-white rounded px-4 py-2 bg-sky-600 hover:bg-sky-500"
+          >
+            Додати
+          </button>
+          <button
+            type="reset"
+            className="text-white rounded px-4 py-2 bg-sky-600 hover:bg-sky-500"
+          >
+            Очистити
+          </button>
+        </div>
+      </form>
+      <table className="w-full table-auto border-separate border-spacing-1 border">
+        <caption className="caption-top">Список майстрів</caption>
+        <thead>
+          <tr>
+            <th className="border">Name</th>
+            <th className="border">Системи</th>
+            <th className="border">Телеграм</th>
+            <th className="border">Фейсбук</th>
+            <th className="border">Опції</th>
+          </tr>
+        </thead>
+        <tbody>
+          {masters
+            ? masters.map((master) => (
+                <tr key={master._id}>
+                  <td className="border">{master.name}</td>
+                  <td className="border">{master.systems}</td>
+                  <td className="border">{master.telegram}</td>
+                  <td className="border">{master.facebook}</td>
+                  <td className="border">
+                    <button
+                      type="button"
+                      data-id={master._id}
+                      onClick={deleteUser}
+                      className="py-0.5 px-2 text-white bg-sky-500 hover:bg-sky-700"
+                    >
+                      Видалити
+                    </button>
+                  </td>
+                </tr>
+              ))
+            : null}
+        </tbody>
+      </table>
+    </>
+  );
+}

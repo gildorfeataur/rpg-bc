@@ -1,8 +1,7 @@
 import Head from "next/head";
 import Header from "../header/header";
 
-const name = '[Your Name]'
-export const siteTitle = "RPG Bila Tserkva";
+const siteTitle = "RPG Bila Tserkva";
 
 export default function Layout({ children }) {
   return (
@@ -24,12 +23,12 @@ export default function Layout({ children }) {
         <title>{siteTitle}</title>
       </Head>
       <Header/>
-      <div className="container mx-auto flex">
+      <main className="container mx-auto">
         {/* <aside>aside</aside> */}
 
-        <main>{children}</main>
+        {children}
 
-      </div>
+      </main>
     </>
   );
 }
