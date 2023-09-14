@@ -80,7 +80,7 @@ export default function RulesTable() {
     <>
       <form id="masterForm" name="masterForm" onSubmit={createRule}>
         <div className="form-group mt-3">
-          <label htmlFor="title">Назва гри:</label>
+          <label htmlFor="title">Назва гри*:</label>
           <input
             type="text"
             className="form-input mt-0.5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
@@ -92,7 +92,7 @@ export default function RulesTable() {
         </div>
 
         <div className="form-group mt-3">
-          <label htmlFor="link">Посилання на правила:</label>
+          <label htmlFor="link">Посилання на правила*:</label>
           <input
             type="url"
             className="form-input mt-0.5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
@@ -104,7 +104,9 @@ export default function RulesTable() {
         </div>
 
         <div className="form-group mt-3">
-          <label htmlFor="ualink">*Посилання на локалізовані правила (якщо треба/існує):</label>
+          <label htmlFor="ualink">
+            Посилання на локалізовані правила (якщо треба/існує):
+          </label>
           <input
             type="url"
             className="form-input mt-0.5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
@@ -128,7 +130,7 @@ export default function RulesTable() {
         </div>
 
         <p className="mt-1 text-slate-500">
-          * - Не обов'язкові для заповнення поля
+          * - Обов'язкові для заповнення поля
         </p>
 
         <div className="flex gap-5 mt-5 mb-3">
@@ -146,13 +148,13 @@ export default function RulesTable() {
           </button>
         </div>
       </form>
-      <table className="w-full table-auto border-separate border-spacing-1 border">
+      <table className="w-full table-auto border-separate border-spacing-1 border bg-white">
         <caption className="caption-top">Список майстрів</caption>
         <thead>
           <tr>
             <th className="border">Назва</th>
-            <th className="border">Правила</th>
-            <th className="border">Локалізація</th>
+            <th className="border">Офф сайт</th>
+            <th className="border">Укр сайт</th>
             <th className="border">Опис</th>
             <th className="border">Опції</th>
           </tr>
@@ -161,10 +163,18 @@ export default function RulesTable() {
           {rules
             ? rules.map((rule) => (
                 <tr key={rule._id}>
-                  <td className="border">{rule.title}</td>
-                  <td className="border">{rule.link}</td>
-                  <td className="border">{rule.ualink}</td>
-                  <td className="border">{rule.description}</td>
+                  <td className="border px-2 text-center">{rule.title}</td>
+                  <td className="border px-2 text-center">
+                    <a href={rule.link}>Link</a>
+                  </td>
+                  <td className="border px-2 text-center">
+                    {rule.ualink ? (
+                      <a href={rule.ualink}>Link (UA)</a>
+                    ) : (
+                      <span className="text-gray-400">не вказаний</span>
+                    )}
+                  </td>
+                  <td className="border px-2">{rule.description}</td>
                   <td className="border">
                     <button
                       type="button"

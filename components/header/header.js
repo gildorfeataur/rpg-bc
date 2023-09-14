@@ -4,7 +4,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const navigation = [
   { name: "Ігри", href: "/", current: false },
-  { name: "Мастера", href: "/masters", current: false },
+  { name: "Майстри", href: "/masters", current: false },
   { name: "Правила", href: "/rules", current: false },
   { name: "Admin", href: "/admin", current: false },
 ];

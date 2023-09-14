@@ -32,9 +32,11 @@ export default function Rules({ rules }) {
               <a target="_blank" href={item.link}>
                 Офіційний сайт
               </a>
-              <a target="_blank" href={item.ualink}>
-                Українська версія
-              </a>
+              {item.ualink && (
+                <a target="_blank" href={item.ualink}>
+                  Українська версія
+                </a>
+              )}
             </div>
           </div>
         ))}

@@ -35,7 +35,7 @@ export default function MastersTable() {
         description: event.target.description.value,
         telegram: event.target.telegram.value,
         facebook: event.target.facebook.value,
-        instagram: event.target.instagram.value
+        instagram: event.target.instagram.value,
       }),
     });
     if (response.ok === true) {
@@ -167,15 +167,35 @@ export default function MastersTable() {
             ? masters.map((master) => (
                 <tr key={master._id}>
                   <td className="border px-2 text-center">{master.name}</td>
-                  <td className="border px-2 text-center"><a target="_blank" href={master.telegram}>Telegram</a></td>
                   <td className="border px-2 text-center">
-                    {master.facebook ? <a target="_blank" href={master.facebook}>Facebook</a> : <span className="text-gray-400">не вказаний</span>}
+                    <a target="_blank" href={master.telegram}>
+                      Telegram
+                    </a>
                   </td>
                   <td className="border px-2 text-center">
-                    {master.instagram ? <a target="_blank" href={master.instagram}>Instagram</a> : <span className="text-gray-400">не вказаний</span>}
+                    {master.facebook ? (
+                      <a target="_blank" href={master.facebook}>
+                        Facebook
+                      </a>
+                    ) : (
+                      <span className="text-gray-400">не вказаний</span>
+                    )}
+                  </td>
+                  <td className="border px-2 text-center">
+                    {master.instagram ? (
+                      <a target="_blank" href={master.instagram}>
+                        Instagram
+                      </a>
+                    ) : (
+                      <span className="text-gray-400">не вказаний</span>
+                    )}
                   </td>
                   <td className="border px-2">
-                    {master.description ? master.description : <span className="text-gray-400">немає опису</span>}
+                    {master.description ? (
+                      master.description
+                    ) : (
+                      <span className="text-gray-400">немає опису</span>
+                    )}
                   </td>
                   <td className="border">
                     <button
