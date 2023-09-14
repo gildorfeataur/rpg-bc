@@ -5,7 +5,9 @@ import classNames from "classnames";
 
 export default function GamesTable() {
   const [games, setGames] = useState([]);
-  const [hint, setHint] = useState(false)
+  const [masters, setMasters] = useState([]);
+  const [rules, setRules] = useState([])
+  const [hint, setHint] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -81,6 +83,28 @@ export default function GamesTable() {
     }
   }
 
+  const fetchMasters = async () => {
+    const response = await fetch("http://localhost:3000/api/masters", {
+        method: "GET",
+        headers: { Accept: "application/json" },
+      });
+      if (response.ok === true) {
+        const masters = await response.json();
+        setMasters(masters)
+      }
+  }
+
+  const fetchRules = async () => {
+    const response = await fetch("http://localhost:3000/api/rules", {
+        method: "GET",
+        headers: { Accept: "application/json" },
+      });
+      if (response.ok === true) {
+        const rules = await response.json();
+        setRules(rules)
+      }
+  }
+
   const resetForm = () => {
     const form = document.getElementById("gamesForm");
     form.reset();
@@ -95,35 +119,35 @@ export default function GamesTable() {
       <form id="gamesForm" name="gamesForm" onSubmit={addGame}>
         <div className="grid grid-cols-2 gap-x-4">
           <div className="form-group mt-3">
-            <label htmlFor="title">Назва гри</label>
+            <label htmlFor="title">*Назва гри</label>
             <input
               className="form-input mt-0.5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               name="title"
               id="title"
               placeholder="Введіть вашу назву"
-              
+              required
             />
           </div>
 
           <div className="form-group mt-3">
-            <label htmlFor="date">Дата</label>
+            <label htmlFor="date">*Дата</label>
             <input
               type="datetime-local"
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               name="date"
               id="date"
-              
+              required
             />
           </div>
 
           <div className="form-group mt-3">
-            <label htmlFor="type">Тип гри</label>
+            <label htmlFor="type">*Тип гри</label>
 
             <select
               className="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               name="type"
               id="type"
-              
+              required
             >
               <option value="" style={{ color: "#888" }}>
                 Оберіть тип
@@ -141,7 +165,7 @@ export default function GamesTable() {
 
           <div className="form-group mt-3">
             <label htmlFor="rules" className="flex items-center relative">
-              *Правила
+              Правила
               <button type="button" className={styles.hint} onClick={showHint}>?</button>
               <div role="tooltip" className={classNames(styles.tooltip, {[styles.isActive]: hint})}>
                 - Правила в випадаючому списку беруться зі сторінки{" "}
@@ -152,8 +176,8 @@ export default function GamesTable() {
                   {' '}Правила
                 </Link>
                 <br />
-                - Якщо правил немає в списку, ви можете додати їх в панелі
-                "Правила" в адмінці
+                - Якщо правил немає в списку, ви можете додати їх во вкладці
+                "Правила" в адмінці, і потім вони відобразяться тут
                 <br />- Або можете додати посилання на них в описі до гри
               </div>
             </label>
@@ -161,30 +185,24 @@ export default function GamesTable() {
               className="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               name="rules"
               id="rules"
+              onClick={fetchRules}
             >
               <option value="" style={{ color: "#888" }}>
                 Оберіть правила
               </option>
-              <option>DND</option>
-              <option>VTM</option>
-              <option>MTG</option>
-              <option>GURPS</option>
-              <option>Cyberpunk</option>
-              <option>Vesen</option>
-              <option>Відьмак</option>
-              <option>Авторська</option>
+              {rules.map((item) => (<option key={item._id}>{item.title}</option>))}
             </select>
           </div>
 
           <div className="form-group mt-3">
-            <label>Кількість гравців (від) - (до)</label>
+            <label>*Кількість гравців (від) - (до)</label>
             <div className="flex gap-3 items-center">
               <input
                 type="number"
                 className="form-input mt-0.5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 name="minPlayersCount"
                 min={1}
-                
+                required
               />
               <span className="flex items-center">-</span>
               <input
@@ -192,55 +210,53 @@ export default function GamesTable() {
                 className="form-input mt-0.5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 name="maxPlayersCount"
                 min={1}
-                
+                required
               />
             </div>
           </div>
 
           <div className="form-group mt-3">
-            <label htmlFor="master">Ведучий / майстер</label>
+            <label htmlFor="master">*Ведучий / майстер</label>
             <select
               className="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               name="master"
               id="master"
-              
+              onClick={fetchMasters}
+              required
             >
               <option value="" style={{ color: "#888" }}>
                 Оберіть майстра
               </option>
-              <option>Кір'янов Богдан</option>
-              <option>Юрій Зубар</option>
-              <option>Громадський Євген</option>
-              <option>Дуновський Макс</option>
+              {masters.map((item) => (<option key={item._id}>{item.name}</option>))}
             </select>
           </div>
 
           <div className="form-group mt-3">
-            <label htmlFor="cost">Ціна (з гравця за одну сесію)</label>
+            <label htmlFor="cost">*Ціна (з гравця за одну сесію)</label>
             <input
               type="number"
               className="form-input mt-0.5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               name="cost"
               id="cost"
-              
+              required
             />
           </div>
 
           <div className="form-group mt-3">
-            <label htmlFor="place">Місце проведення</label>
+            <label htmlFor="place">*Місце проведення</label>
             <input
               type="text"
               className="form-input mt-0.5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               name="place"
               id="place"
               placeholder="Назва місця (координати в опис)"
-              
+              required
             />
           </div>
         </div>
 
         <div className="form-group mt-3">
-          <label htmlFor="description">*Опис</label>
+          <label htmlFor="description">Опис</label>
           <textarea
             type="text"
             className="form-input mt-0.5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
@@ -250,7 +266,7 @@ export default function GamesTable() {
         </div>
 
         <p className="mt-1 text-slate-500">
-          * - Не обов'язкові для заповнення поля
+          * - Обов'язкові для заповнення поля
         </p>
 
         <div className="flex gap-5 mt-5 mb-3">

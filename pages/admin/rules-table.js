@@ -31,7 +31,7 @@ export default function RulesTable() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: event.target.name.value,
+        title: event.target.title.value,
         link: event.target.link.value,
         ualink: event.target.ualink.value,
         description: event.target.description.value,
@@ -80,12 +80,12 @@ export default function RulesTable() {
     <>
       <form id="masterForm" name="masterForm" onSubmit={createRule}>
         <div className="form-group mt-3">
-          <label htmlFor="name">Назва гри:</label>
+          <label htmlFor="title">Назва гри:</label>
           <input
             type="text"
             className="form-input mt-0.5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-            name="name"
-            id="name"
+            name="title"
+            id="title"
             required
             placeholder="Введіть назву гри"
           />
@@ -115,11 +115,12 @@ export default function RulesTable() {
         </div>
 
         <div className="form-group mt-3">
-          <label>Опис:</label>
+          <label htmlFor="description">Опис:</label>
           <textarea
             type="text"
             className="form-input mt-0.5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             name="description"
+            id="description"
             required
             placeholder="Пара речень про саму гру (~200 символів)"
             maxLength={300}
@@ -160,7 +161,7 @@ export default function RulesTable() {
           {rules
             ? rules.map((rule) => (
                 <tr key={rule._id}>
-                  <td className="border">{rule.name}</td>
+                  <td className="border">{rule.title}</td>
                   <td className="border">{rule.link}</td>
                   <td className="border">{rule.ualink}</td>
                   <td className="border">{rule.description}</td>

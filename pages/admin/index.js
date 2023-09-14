@@ -45,7 +45,7 @@ export default function AdminPage({}) {
         <TabButton
           isActive={tab === "games"}
           onClick={() => selectTab("games")}
-          className="text-white rounded px-4 py-2"
+          className="rounded px-4 py-2"
         >
           Ігри
         </TabButton>
@@ -53,7 +53,7 @@ export default function AdminPage({}) {
         <TabButton
           isActive={tab === "masters"}
           onClick={() => selectTab("masters")}
-          className="text-white rounded px-4 py-2"
+          className="rounded px-4 py-2"
         >
           Майстри
         </TabButton>
@@ -61,15 +61,17 @@ export default function AdminPage({}) {
         <TabButton
           isActive={tab === "rules"}
           onClick={() => selectTab("rules")}
-          className="text-white rounded px-4 py-2"
+          className="rounded px-4 py-2"
         >
           Правила
         </TabButton>
       </div>
 
-      {tab === "games" && <GamesTable />}
-      {tab === "masters" && <MastersTable />}
-      {tab === "rules" && <RulesTable />}
+      <div className="border p-4 mt-4 bg-neutral-100 rounded">
+        {tab === "games" && <GamesTable />}
+        {tab === "masters" && <MastersTable />}
+        {tab === "rules" && <RulesTable />}
+      </div>
     </Layout>
   );
 }

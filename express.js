@@ -103,6 +103,7 @@ app.post("/api/masters", jsonParser, async (req, res) => {
     description: req.body.description,
     telegram: req.body.telegram,
     facebook: req.body.facebook,
+    instagram: req.body.instagram
   };
 
   const collection = req.app.locals.masters;
@@ -120,7 +121,7 @@ app.post("/api/rules", jsonParser, async (req, res) => {
   if (!req.body) return res.sendStatus(400);
 
   const rule = {
-    name: req.body.name,
+    title: req.body.title,
     link: req.body.link,
     ualink: req.body.ualink,
     description: req.body.description,
