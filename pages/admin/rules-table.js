@@ -123,7 +123,6 @@ export default function RulesTable() {
             className="form-input mt-0.5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             name="description"
             id="description"
-            required
             placeholder="Пара речень про саму гру (~200 символів)"
             maxLength={300}
           />
@@ -174,7 +173,13 @@ export default function RulesTable() {
                       <span className="text-gray-400">не вказаний</span>
                     )}
                   </td>
-                  <td className="border px-2">{rule.description}</td>
+                  <td className="border px-2">
+                    {rule.description ? (
+                      rule.description
+                    ) : (
+                      <span className="text-gray-400">немає опису</span>
+                    )}
+                  </td>
                   <td className="border">
                     <button
                       type="button"
