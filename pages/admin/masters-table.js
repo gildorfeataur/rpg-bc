@@ -12,7 +12,6 @@ export default function MastersTable() {
       if (response.ok === true) {
         const masters = await response.json();
         setMasters(masters);
-        resetForm();
       }
     };
 
@@ -46,13 +45,31 @@ export default function MastersTable() {
       if (refetch.ok === true) {
         const masters = await refetch.json();
         setMasters(masters);
-        resetForm();
+        event.target.reset();
       }
     }
   }
 
-  async function deleteUser(e) {
-    let id = e.target.getAttribute("data-id");
+  async function addUserPhoto(event) {
+    event.preventDefault();
+    const fileInput = document.querySelector("#profilePhoto");
+    const file = fileInput.files[0];
+    let formData = new FormData();
+    formData.append("uploaded_file", file);
+
+    const response = await fetch("http://localhost:3000/api/upload", {
+      method: "POST",
+      body: formData,
+    });
+    if (response.ok === true) {
+      const result = await response.json();
+      console.log("Файл завантажен:", result);
+      fileInput.value = null
+    }
+  }
+
+  async function deleteUser(event) {
+    let id = event.target.getAttribute("data-id");
     const response = await fetch("http://localhost:3000/api/masters/" + id, {
       method: "DELETE",
       headers: { Accept: "application/json" },
@@ -71,11 +88,6 @@ export default function MastersTable() {
       }
     }
   }
-
-  const resetForm = () => {
-    const form = document.getElementById("masterForm");
-    form.reset();
-  };
 
   return (
     <>
@@ -138,7 +150,7 @@ export default function MastersTable() {
         <div className="flex gap-5 mt-5 mb-3">
           <button
             type="submit"
-            className="text-white rounded px-4 py-2 bg-sky-600 hover:bg-sky-500"
+            className="text-white rounded px-4 py-2 bg-lime-600 hover:bg-lime-500"
           >
             Додати
           </button>
@@ -150,6 +162,25 @@ export default function MastersTable() {
           </button>
         </div>
       </form>
+
+      <div className="form-group mt-3">
+        <label htmlFor="profilePhoto">Фото профіля:</label>
+        <div className="flex items-center mt-0.5">
+          <input
+            type="file"
+            id="profilePhoto"
+            name="profilePhoto"
+            className="form-input block rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          />
+          <button
+            className="ml-6 text-white rounded px-4 py-2 bg-teal-600 hover:bg-teal-500"
+            onClick={addUserPhoto}
+          >
+            Завантажити фото
+          </button>
+        </div>
+      </div>
+
       <table className="w-full table-auto border-separate border-spacing-1 border bg-white">
         <caption className="caption-top">Список майстрів</caption>
         <thead>

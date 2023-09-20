@@ -41,10 +41,7 @@ export default function Masters({ masters }) {
 
         <div className="mx-auto my-16 max-w-5xl max-h-310 grid grid-cols-3 grid-rows-2 gap-12">
           {pageCollection.map((item) => (
-            <div
-              key={item._id}
-              className="flex flex-col items-center gap-4"
-            >
+            <div key={item._id} className="flex flex-col items-center gap-4 h-72">
               <Image
                 className="h-24 w-24 rounded-full border bg-slate-200 border-slate-500"
                 src={item.imageUrl ? item.imageUrl : imgPlaceholder}
@@ -59,7 +56,11 @@ export default function Masters({ masters }) {
 
               <div className="flex gap-4 text-sm font-semibold leading-6 text-indigo-600">
                 {item.telegram && (
-                  <a target="_blank" href={item.telegram}>
+                  <a
+                    target="_blank"
+                    href={item.telegram}
+                    className="scale transition-all hover:scale-110"
+                  >
                     <Image
                       src={iconTelegram}
                       width={28}
@@ -72,7 +73,7 @@ export default function Masters({ masters }) {
                   <a
                     target="_blank"
                     href={item.instagram}
-                    className="text-gray"
+                    className="scale transition-all hover:scale-110"
                   >
                     <Image
                       src={iconInstagram}
@@ -83,7 +84,11 @@ export default function Masters({ masters }) {
                   </a>
                 )}
                 {item.facebook && (
-                  <a target="_blank" href={item.facebook}>
+                  <a
+                    target="_blank"
+                    href={item.facebook}
+                    className="scale transition-all hover:scale-110"
+                  >
                     <Image
                       src={iconFacebook}
                       width={28}
@@ -94,7 +99,9 @@ export default function Masters({ masters }) {
                 )}
               </div>
 
-              <p className="text-center text-neutral-500 line-clamp-3">{item.description}</p>
+              <p className="text-center text-neutral-500 line-clamp-3">
+                {item.description}
+              </p>
             </div>
           ))}
         </div>
