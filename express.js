@@ -7,12 +7,12 @@ const app = express();
 const jsonParser = express.json();
 const mongoClient = new MongoClient("mongodb://127.0.0.1:27017/");
 const storageConfig = multer.diskStorage({
-  destination: (req, file, cb) =>{
-      cb(null, "public/avatars");
+  destination: (req, file, cb) => {
+    cb(null, "public/avatars");
   },
-  filename: (req, file, cb) =>{
-      cb(null, file.originalname);
-  }
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
 });
 
 app.use(express.urlencoded({ extended: true }));
@@ -53,18 +53,7 @@ app.get("/api/masters", async (req, res) => {
   }
 });
 
-app.get("/api/rules", async (req, res) => {
-  const collection = req.app.locals.rules;
-  try {
-    const rules = await collection.find({}).toArray();
-    res.send(rules);
-  } catch (err) {
-    console.log(err);
-    res.sendStatus(500);
-  }
-});
-
-// app.get("/api/games/:id", async (req, res) => {
+// app.get("/api/masters/:id", async (req, res) => {
 //   const collection = req.app.locals.games;
 //   try {
 //     const id = new objectId(req.params.id);
@@ -76,6 +65,17 @@ app.get("/api/rules", async (req, res) => {
 //     res.sendStatus(500);
 //   }
 // });
+
+app.get("/api/rules", async (req, res) => {
+  const collection = req.app.locals.rules;
+  try {
+    const rules = await collection.find({}).toArray();
+    res.send(rules);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
 
 app.post("/api/games", jsonParser, async (req, res) => {
   if (!req.body) return res.sendStatus(400);
@@ -128,11 +128,11 @@ app.post("/api/masters", jsonParser, async (req, res) => {
 });
 
 //files upload
-app.use(multer({storage:storageConfig}).single("avatar"));
+app.use(multer({ storage: storageConfig }).single("avatar"));
 app.post("/api/upload", async (req, res) => {
   console.log(req.file);
   try {
-    await res.send(req.file)
+    await res.send(req.file);
   } catch (err) {
     console.log(err);
     res.sendStatus(500);
@@ -199,12 +199,12 @@ app.delete("/api/rules/:id", async (req, res) => {
   }
 });
 
-// app.put("/api/games", jsonParser, async (req, res) => {
+// app.put("/api/masters", jsonParser, async (req, res) => {
 //   if (!req.body) return res.sendStatus(400);
 //   const userName = req.body.name;
 //   const userAge = req.body.age;
 
-//   const collection = req.app.locals.games;
+//   const collection = req.app.locals.masters;
 //   try {
 //     const id = new objectId(req.body.id);
 //     const result = await collection.findOneAndUpdate(

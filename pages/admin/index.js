@@ -41,11 +41,11 @@ export default function AdminPage({}) {
         <title>{siteTitle}</title>
       </Head>
 
-      <div className="flex gap-5">
+      <div className="flex gap-1">
         <TabButton
           isActive={tab === "games"}
           onClick={() => selectTab("games")}
-          className="rounded px-4 py-2"
+          className="rounded-t-lg px-4 py-2"
         >
           Ігри
         </TabButton>
@@ -53,7 +53,7 @@ export default function AdminPage({}) {
         <TabButton
           isActive={tab === "masters"}
           onClick={() => selectTab("masters")}
-          className="rounded px-4 py-2"
+          className="rounded-t-lg px-4 py-2"
         >
           Майстри
         </TabButton>
@@ -61,13 +61,13 @@ export default function AdminPage({}) {
         <TabButton
           isActive={tab === "rules"}
           onClick={() => selectTab("rules")}
-          className="rounded px-4 py-2"
+          className="rounded-t-lg px-4 py-2"
         >
           Правила
         </TabButton>
       </div>
 
-      <div className="border p-4 mt-4 bg-neutral-100 rounded">
+      <div className="border border-slate-400 border-t-0 p-4 bg-neutral-100">
         {tab === "games" && <GamesTable />}
         {tab === "masters" && <MastersTable />}
         {tab === "rules" && <RulesTable />}

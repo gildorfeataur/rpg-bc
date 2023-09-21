@@ -284,7 +284,7 @@ export default function GamesTable() {
           </button>
         </div>
       </form>
-      <table className="w-full table-auto border-collapse border-spacing-1 border">
+      <table className="w-full table-auto border-collapse border-spacing-1">
         <caption className="caption-top">Список ігор</caption>
         <thead>
           <tr>

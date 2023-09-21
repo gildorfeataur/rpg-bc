@@ -147,7 +147,7 @@ export default function RulesTable() {
           </button>
         </div>
       </form>
-      <table className="w-full table-auto border-separate border-spacing-1 border bg-white">
+      <table className="w-full table-auto border-separate border-spacing-1 bg-white">
         <caption className="caption-top">Список майстрів</caption>
         <thead>
           <tr>
