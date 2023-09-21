@@ -1,18 +1,21 @@
 const express = require("express");
-// var bodyParser = require('body-parser');
-// var fileUpload = require("express-fileupload");
 const multer = require("multer");
-const upload = multer({ dest: "./public" });
 const MongoClient = require("mongodb").MongoClient;
 const objectId = require("mongodb").ObjectId;
 
 const app = express();
 const jsonParser = express.json();
-
 const mongoClient = new MongoClient("mongodb://127.0.0.1:27017/");
+const storageConfig = multer.diskStorage({
+  destination: (req, file, cb) =>{
+      cb(null, "public/avatars");
+  },
+  filename: (req, file, cb) =>{
+      cb(null, file.originalname);
+  }
+});
 
 app.use(express.urlencoded({ extended: true }));
-
 app.use(express.static(`${__dirname}`));
 
 (async () => {
@@ -110,6 +113,7 @@ app.post("/api/masters", jsonParser, async (req, res) => {
     telegram: req.body.telegram,
     facebook: req.body.facebook,
     instagram: req.body.instagram,
+    photoPath: req.body.photoPath,
   };
 
   const collection = req.app.locals.masters;
@@ -123,7 +127,9 @@ app.post("/api/masters", jsonParser, async (req, res) => {
   }
 });
 
-app.post("/api/upload", upload.single("uploaded_file"), async (req, res) => {
+//files upload
+app.use(multer({storage:storageConfig}).single("avatar"));
+app.post("/api/upload", async (req, res) => {
   console.log(req.file);
   try {
     await res.send(req.file)
