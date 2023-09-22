@@ -31,6 +31,8 @@ app.use(express.static(`${__dirname}`));
   }
 })();
 
+//GAMES
+
 app.get("/api/games", async (req, res) => {
   const collection = req.app.locals.games;
   try {
@@ -42,35 +44,13 @@ app.get("/api/games", async (req, res) => {
   }
 });
 
-app.get("/api/masters", async (req, res) => {
-  const collection = req.app.locals.masters;
+app.delete("/api/games/:id", async (req, res) => {
+  const collection = req.app.locals.games;
   try {
-    const masters = await collection.find({}).toArray();
-    res.send(masters);
-  } catch (err) {
-    console.log(err);
-    res.sendStatus(500);
-  }
-});
-
-// app.get("/api/masters/:id", async (req, res) => {
-//   const collection = req.app.locals.games;
-//   try {
-//     const id = new objectId(req.params.id);
-//     const game = await collection.findOne({ _id: id });
-//     if (game) res.send(game);
-//     else res.sendStatus(404);
-//   } catch (err) {
-//     console.log(err);
-//     res.sendStatus(500);
-//   }
-// });
-
-app.get("/api/rules", async (req, res) => {
-  const collection = req.app.locals.rules;
-  try {
-    const rules = await collection.find({}).toArray();
-    res.send(rules);
+    const id = new objectId(req.params.id);
+    const result = await collection.findOneAndDelete({ _id: id });
+    if (result) res.send(result);
+    else res.sendStatus(404);
   } catch (err) {
     console.log(err);
     res.sendStatus(500);
@@ -104,16 +84,29 @@ app.post("/api/games", jsonParser, async (req, res) => {
   }
 });
 
+//MASTERS
+
+app.get("/api/masters", async (req, res) => {
+  const collection = req.app.locals.masters;
+  try {
+    const masters = await collection.find({}).toArray();
+    res.send(masters);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
+
 app.post("/api/masters", jsonParser, async (req, res) => {
   if (!req.body) return res.sendStatus(400);
 
   const master = {
     name: req.body.name,
-    description: req.body.description,
     telegram: req.body.telegram,
     facebook: req.body.facebook,
     instagram: req.body.instagram,
     photoPath: req.body.photoPath,
+    description: req.body.description,
   };
 
   const collection = req.app.locals.masters;
@@ -133,6 +126,65 @@ app.post("/api/upload", async (req, res) => {
   console.log(req.file);
   try {
     await res.send(req.file);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
+
+app.put("/api/masters/:id", jsonParser, async (req, res) => {
+  if (!req.body) return res.sendStatus(400);
+  const userTelegram = req.body.telegram;
+  const userFacebook = req.body.facebook;
+  const userInstagram = req.body.instagram;
+  const userPhotoPath = req.body.photoPath;
+  const userDescription = req.body.description;
+
+  const collection = req.app.locals.masters;
+  try {
+    const id = new objectId(req.params.id);
+    const result = await collection.findOneAndUpdate(
+      { _id: id },
+      {
+        $set: {
+          telegram: userTelegram ? userTelegram : null,
+          facebook: userFacebook ? userFacebook : null,
+          instagram: userInstagram ? userInstagram : null,
+          photoPath: userPhotoPath ? userPhotoPath : null,
+          description: userDescription ? userDescription : null,
+        },
+      },
+      { returnDocument: "after" }
+    );
+
+    const user = result;
+    if (user) res.send(user);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
+
+app.delete("/api/masters/:id", async (req, res) => {
+  const collection = req.app.locals.masters;
+  try {
+    const id = new objectId(req.params.id);
+    const result = await collection.findOneAndDelete({ _id: id });
+    if (result) res.send(result);
+    else res.sendStatus(404);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
+
+//RULES
+
+app.get("/api/rules", async (req, res) => {
+  const collection = req.app.locals.rules;
+  try {
+    const rules = await collection.find({}).toArray();
+    res.send(rules);
   } catch (err) {
     console.log(err);
     res.sendStatus(500);
@@ -160,32 +212,6 @@ app.post("/api/rules", jsonParser, async (req, res) => {
   }
 });
 
-app.delete("/api/games/:id", async (req, res) => {
-  const collection = req.app.locals.games;
-  try {
-    const id = new objectId(req.params.id);
-    const result = await collection.findOneAndDelete({ _id: id });
-    if (result) res.send(result);
-    else res.sendStatus(404);
-  } catch (err) {
-    console.log(err);
-    res.sendStatus(500);
-  }
-});
-
-app.delete("/api/masters/:id", async (req, res) => {
-  const collection = req.app.locals.masters;
-  try {
-    const id = new objectId(req.params.id);
-    const result = await collection.findOneAndDelete({ _id: id });
-    if (result) res.send(result);
-    else res.sendStatus(404);
-  } catch (err) {
-    console.log(err);
-    res.sendStatus(500);
-  }
-});
-
 app.delete("/api/rules/:id", async (req, res) => {
   const collection = req.app.locals.rules;
   try {
@@ -198,29 +224,6 @@ app.delete("/api/rules/:id", async (req, res) => {
     res.sendStatus(500);
   }
 });
-
-// app.put("/api/masters", jsonParser, async (req, res) => {
-//   if (!req.body) return res.sendStatus(400);
-//   const userName = req.body.name;
-//   const userAge = req.body.age;
-
-//   const collection = req.app.locals.masters;
-//   try {
-//     const id = new objectId(req.body.id);
-//     const result = await collection.findOneAndUpdate(
-//       { _id: id },
-//       { $set: { age: userAge, name: userName } },
-//       { returnDocument: "after" }
-//     );
-
-//     const game = result.value;
-//     if (game) res.send(game);
-//     else res.sendStatus(404);
-//   } catch (err) {
-//     console.log(err);
-//     res.sendStatus(500);
-//   }
-// });
 
 process.on("SIGINT", async () => {
   await mongoClient.close();

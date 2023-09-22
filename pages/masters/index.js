@@ -50,7 +50,7 @@ export default function Masters({ masters }) {
             >
               {item.photoPath ? (
                 <img
-                  className="rounded-full border bg-slate-200 border-slate-500"
+                  className="rounded-full border bg-slate-200 border-slate-500 w-[120px] h-[120px] object-cover"
                   src={`${endpoint}${item.photoPath}`}
                   alt="avatar"
                   width={120}

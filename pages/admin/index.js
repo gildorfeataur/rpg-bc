@@ -27,7 +27,7 @@ const siteTitle = "Admin panel";
 
 export default function AdminPage({}) {
   const [isPending, startTransition] = useTransition();
-  const [tab, setTab] = useState("games");
+  const [tab, setTab] = useState("masters");
 
   function selectTab(nextTab) {
     startTransition(() => {
