@@ -1,29 +1,12 @@
 import React, { useTransition, useState } from "react";
 import Layout from "../../components/layout/layout";
 import Head from "next/head";
-import GamesTable from "./games-table";
-import MastersTable from "./masters-table";
-import RulesTable from "./rules-table";
-import TabButton from "./tab-button";
+import GamesTab from "./games-tab/games-tab-controller";
+import MastersTab from "./masters-tab/masters-tab-controller";
+import RulesTab from "./rules-tab/rules-tab-controller";
+import TabButton from "./tab-button/tab-button";
 
 const siteTitle = "Admin panel";
-
-// export async function getStaticProps(context) {
-//   let users = undefined;
-//   const response = await fetch("http://localhost:3000/api/users", {
-//     method: "GET",
-//     headers: { Accept: "application/json" },
-//   });
-//   if (response.ok === true) {
-//     users = await response.json();
-//   }
-//   return {
-//     props: {
-//       users,
-//     },
-//     revalidate: 5,
-//   };
-// }
 
 export default function AdminPage({}) {
   const [isPending, startTransition] = useTransition();
@@ -68,9 +51,9 @@ export default function AdminPage({}) {
       </div>
 
       <div className="border border-slate-400 border-t-0 p-4 bg-neutral-100">
-        {tab === "games" && <GamesTable />}
-        {tab === "masters" && <MastersTable />}
-        {tab === "rules" && <RulesTable />}
+        {tab === "games" && <GamesTab />}
+        {tab === "masters" && <MastersTab />}
+        {tab === "rules" && <RulesTab />}
       </div>
     </Layout>
   );

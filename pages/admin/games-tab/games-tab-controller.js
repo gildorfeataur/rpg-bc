@@ -3,7 +3,7 @@ import Link from "next/link";
 import styles from "./index.module.scss";
 import classNames from "classnames";
 
-export default function GamesTable() {
+export default function GamesTab() {
   const [games, setGames] = useState([]);
   const [masters, setMasters] = useState([]);
   const [rules, setRules] = useState([])

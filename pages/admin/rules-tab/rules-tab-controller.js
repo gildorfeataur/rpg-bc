@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-export default function RulesTable() {
+export default function RulesTab() {
   const [rules, setRules] = useState([]);
 
   useEffect(() => {
