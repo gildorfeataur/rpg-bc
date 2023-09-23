@@ -1,9 +1,9 @@
 import React, { useTransition, useState } from "react";
 import Layout from "../../components/layout/layout";
 import Head from "next/head";
-import GamesTab from "./games-tab/games-tab-controller";
-import MastersTab from "./masters-tab/masters-tab-controller";
-import RulesTab from "./rules-tab/rules-tab-controller";
+import GamesTab from "./games-tab/games-tab";
+import MastersTab from "./masters-tab/masters-tab";
+import RulesTab from "./rules-tab/rules-tab";
 import TabButton from "./tab-button/tab-button";
 
 const siteTitle = "Admin panel";
