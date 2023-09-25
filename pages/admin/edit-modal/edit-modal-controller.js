@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import UserEditModalView from "./user-edit-view";
+import EditModalView from "./edit-modal-view";
 
-export default function UserEditModal({ user, onSubmit }) {
+export default function EditModal({ user, onSubmit }) {
   // const userPhotoHandler = () => {
   //   const uploadBtn = document.getElementById("addUserPhotoBtn");
   //   uploadBtn.classList.remove("pointer-events-none");
@@ -19,7 +19,7 @@ export default function UserEditModal({ user, onSubmit }) {
       id="userChangeModal"
       className="fixed inset-0 z-10 rounded shadow shadow-slate-400 p-4"
     >
-      <UserEditModalView user={user} onSubmit={onSubmit} onClose={modalClose} />
+      <EditModalView user={user} onSubmit={onSubmit} onClose={modalClose} />
     </dialog>
   );
 }

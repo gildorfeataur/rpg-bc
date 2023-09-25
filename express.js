@@ -5,10 +5,13 @@ const objectId = require("mongodb").ObjectId;
 
 const app = express();
 const jsonParser = express.json();
+
 const mongoClient = new MongoClient("mongodb://127.0.0.1:27017/");
+
+const usersPhotos = "public/avatars";
 const storageConfig = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "public/avatars");
+    cb(null, usersPhotos);
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);
@@ -97,15 +100,43 @@ app.get("/api/masters", async (req, res) => {
   }
 });
 
-app.post("/api/masters", jsonParser, async (req, res) => {
+// app.post("/api/masters", jsonParser, async (req, res) => {
+//   if (!req.body) return res.sendStatus(400);
+
+//   const master = {
+//     name: req.body.name,
+//     telegram: req.body.telegram,
+//     facebook: req.body.facebook,
+//     instagram: req.body.instagram,
+//     photoPath: req.body.photoPath,
+//     description: req.body.description,
+//   };
+
+//   const collection = req.app.locals.masters;
+
+//   try {
+//     await collection.insertOne(master);
+//     res.send(master);
+//   } catch (err) {
+//     console.log(err);
+//     res.sendStatus(500);
+//   }
+// });
+
+//files upload
+app.use(multer({ storage: storageConfig }).single("avatar"));
+app.post("/api/masters", async (req, res) => {
   if (!req.body) return res.sendStatus(400);
+
+  console.log(req.file);
+  console.log(req.body);
 
   const master = {
     name: req.body.name,
     telegram: req.body.telegram,
     facebook: req.body.facebook,
     instagram: req.body.instagram,
-    photoPath: req.body.photoPath,
+    photoPath: `/${req.file.destination}/${req.file.originalname}`,
     description: req.body.description,
   };
 
@@ -113,19 +144,7 @@ app.post("/api/masters", jsonParser, async (req, res) => {
 
   try {
     await collection.insertOne(master);
-    res.send(master);
-  } catch (err) {
-    console.log(err);
-    res.sendStatus(500);
-  }
-});
-
-//files upload
-app.use(multer({ storage: storageConfig }).single("avatar"));
-app.post("/api/upload", async (req, res) => {
-  console.log(req.file);
-  try {
-    await res.send(req.file);
+    await res.send(master);
   } catch (err) {
     console.log(err);
     res.sendStatus(500);

@@ -1,8 +1,18 @@
-import classNames from "classnames";
+import { useState } from "react";
+import PhotoUpload from "../../photo-upload/photo-upload";
 
-export default function MastersForm({ onSubmit, userPhotoHandler, addUserPhoto, userPhotoPath }) {
+export default function MastersForm({ onSubmit }) {
+  const [formReset, setFormReset] = useState(false)
+
+  const formResetHandler = () => {
+    setFormReset(true)
+    setTimeout(() => {
+      setFormReset(false)
+    }, 2000);
+  }
+
   return (
-    <form id="masterForm" name="masterForm" onSubmit={onSubmit}>
+    <form id="masterForm" name="masterForm" onReset={formResetHandler} onSubmit={onSubmit}>
       <div className="form-group mt-3">
         <label htmlFor="name">Ім'я*:</label>
         <input
@@ -54,7 +64,7 @@ export default function MastersForm({ onSubmit, userPhotoHandler, addUserPhoto, 
         />
       </div>
 
-      <div className="form-group mt-3">
+      {/* <div className="form-group mt-3">
         <label htmlFor="profilePhoto">Фото профіля:</label>
         <div className="flex items-center mt-0.5 border py-1 px-2">
           <div>
@@ -66,55 +76,6 @@ export default function MastersForm({ onSubmit, userPhotoHandler, addUserPhoto, 
               className="form-input block rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               onChange={userPhotoHandler}
             />
-            <button
-              type="button"
-              id="addUserPhotoBtn"
-              className={classNames({
-                "mt-2 flex items-center text-white rounded px-4 py-2 bg-neutral-400 pointer-events-none":
-                  !userPhotoPath,
-                "mt-2 flex items-center text-white rounded px-4 py-2 bg-teal-600 hover:bg-teal-500 pointer-events-none":
-                  userPhotoPath,
-              })}
-              onClick={addUserPhoto}
-            >
-              {userPhotoPath ? (
-                <>
-                  <span>Фото завантажено</span>{" "}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 h-6 ml-1"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M4.5 12.75l6 6 9-13.5"
-                    />
-                  </svg>
-                </>
-              ) : (
-                <>
-                  <span>Завантажити фото</span>{" "}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 h-6 ml-1"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15M9 12l3 3m0 0l3-3m-3 3V2.25"
-                    />
-                  </svg>
-                </>
-              )}
-            </button>
           </div>
 
           <div className="flex ml-5 w-[120px] h-[120px] rounded-full border bg-slate-200 border-slate-500 overflow-hidden">
@@ -131,6 +92,10 @@ export default function MastersForm({ onSubmit, userPhotoHandler, addUserPhoto, 
             )}
           </div>
         </div>
+      </div> */}
+
+      <div className="form-group mt-3">
+        <PhotoUpload formReset={formReset} />
       </div>
 
       <p className="mt-3 text-slate-500">* - Обов'язкові для заповнення поля</p>

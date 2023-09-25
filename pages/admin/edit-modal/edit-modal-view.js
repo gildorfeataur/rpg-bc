@@ -1,6 +1,6 @@
 import classNames from "classnames";
 
-export default function UserEditModalView({ user, onSubmit, onClose }) {
+export default function EditModalView({ user, onSubmit, onClose }) {
   return (
     <>
       <h3>Форма редагування юзера</h3>

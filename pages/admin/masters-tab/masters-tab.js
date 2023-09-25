@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import UserEditModal from "../user-edit/user-edit-controller";
+import EditModal from "../edit-modal/edit-modal-controller";
 import MastersTable from "./masters-table/masters-table";
 import MastersForm from "./masters-form/masters-form";
 
@@ -10,8 +10,6 @@ export default function MastersTab() {
   const endpoint = "http://localhost:3000";
   const [masters, setMasters] = useState([]);
   const [user, setUser] = useState("");
-  const [userPhotoPath, setUserPhotoPath] = useState(null);
-  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,37 +28,6 @@ export default function MastersTab() {
     });
   }, []);
 
-  const createUser = async (event) => {
-    event.preventDefault();
-
-    const response = await fetch(`${endpoint}/api/masters`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: event.target.name.value,
-        description: event.target.description.value,
-        telegram: event.target.telegram.value,
-        facebook: event.target.facebook.value,
-        instagram: event.target.instagram.value,
-        photoPath: userPhotoPath,
-      }),
-    });
-    if (response.ok === true) {
-      const refetch = await fetch(`${endpoint}/api/masters`, {
-        method: "GET",
-        headers: { Accept: "application/json" },
-      });
-      if (refetch.ok === true) {
-        const masters = await refetch.json();
-        setMasters(masters);
-        event.target.reset();
-      }
-    }
-  };
-
   const changeUser = async (event) => {
     event.preventDefault();
 
@@ -74,7 +41,6 @@ export default function MastersTab() {
         telegram: event.target.telegram.value,
         facebook: event.target.facebook.value,
         instagram: event.target.instagram.value,
-        photoPath: userPhotoPath,
         description: event.target.description.value,
       }),
     });
@@ -96,31 +62,34 @@ export default function MastersTab() {
     }
   };
 
-  const userPhotoHandler = () => {
-    const uploadBtn = document.getElementById("addUserPhotoBtn");
-    // const uploaModaldBtn = document.getElementById('masterChangeForm').getElementById("addUserPhotoBtn");
-    uploadBtn.classList.remove("pointer-events-none");
-    // uploaModaldBtn.classList.remove("pointer-events-none");
-    uploadBtn.classList.remove("bg-neutral-400");
-    uploadBtn.classList.add("bg-teal-600");
-  };
-
-  const addUserPhoto = async (event) => {
+  const createUser = async (event) => {
     event.preventDefault();
-    const fileInput = document.querySelector("#profilePhoto");
+    const fileInput = event.target.profilePhoto
     const file = fileInput.files[0];
     let formData = new FormData();
-    formData.append("avatar", file);
 
-    const response = await fetch(`${endpoint}/api/upload`, {
+    formData.append("avatar", file);
+    formData.append("name", event.target.name.value)
+    formData.append("description", event.target.description.value)
+    formData.append("telegram", event.target.telegram.value)
+    formData.append("facebook", event.target.facebook.value)
+    formData.append("instagram", event.target.instagram.value)
+
+    const response = await fetch(`${endpoint}/api/masters`, {
       method: "POST",
       body: formData,
     });
     if (response.ok === true) {
-      const result = await response.json();
-      setUserPhotoPath(`/${result.destination}/${result.filename}`);
-      console.log("Файл завантажен:", result);
-      fileInput.value = null;
+      const refetch = await fetch(`${endpoint}/api/masters`, {
+        method: "GET",
+        headers: { Accept: "application/json" },
+      });
+      if (refetch.ok === true) {
+        const masters = await refetch.json();
+        setMasters(masters);
+        event.target.reset();
+        URL.revokeObjectURL(file)
+      }
     }
   };
 
@@ -160,9 +129,6 @@ export default function MastersTab() {
     <>
       <MastersForm
         onSubmit={createUser}
-        userPhotoHandler={userPhotoHandler}
-        addUserPhoto={addUserPhoto}
-        userPhotoPath={userPhotoPath}
       />
 
       <MastersTable
@@ -172,11 +138,7 @@ export default function MastersTab() {
         deleteItem={deleteUser}
       />
 
-      <UserEditModal
-        user={user}
-        onSubmit={changeUser}
-        modalVisible={modalVisible}
-      />
+      <EditModal user={user} onSubmit={changeUser} />
     </>
   );
 }
