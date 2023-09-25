@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import PhotoUpload from "../photo-upload/photo-upload";
 
 export default function EditModalView({ user, onSubmit, onClose }) {
   return (
@@ -60,6 +61,8 @@ export default function EditModalView({ user, onSubmit, onClose }) {
             defaultValue={user.description}
           />
         </div>
+
+        <PhotoUpload imgSource={user.photoPath} />
 
         <div className="flex gap-5 mt-5 mb-3">
           <button

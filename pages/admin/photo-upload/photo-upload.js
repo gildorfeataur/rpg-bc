@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 
-export default function PhotoUpload({ formReset }) {
-  const [userImg, setUserImg] = useState(null);
+export default function PhotoUpload({ imgSource, formReset }) {
+  const endpoint = "http://localhost:3000";
+  const [imgPreview, setUserImg] = useState(null);
 
   useEffect(() => {
     const fileInput = document.querySelector("#profilePhoto");
     const file = fileInput.files[0];
 
     if (formReset) {
-      URL.revokeObjectURL(file)
-      setUserImg(null)
+      URL.revokeObjectURL(file);
+      setUserImg(null);
     }
-  }, [formReset])
+  }, [formReset]);
 
   const onImgChange = (event) => {
     event.preventDefault();
@@ -25,9 +26,17 @@ export default function PhotoUpload({ formReset }) {
       <label htmlFor="profilePhoto">Фото профіля:</label>
       <div className="flex items-center mt-0.5 border py-1 px-2">
         <div className="flex mr-5 w-[120px] h-[120px] rounded-full border bg-slate-200 border-slate-500 overflow-hidden">
-          {userImg ? (
+          {imgSource ? (
             <img
-              src={userImg}
+              src={endpoint + imgSource}
+              alt="avatar"
+              width={120}
+              height={120}
+              className="object-cover"
+            />
+          ) : imgPreview ? (
+            <img
+              src={imgPreview}
               alt="avatar"
               width={120}
               height={120}
@@ -38,14 +47,20 @@ export default function PhotoUpload({ formReset }) {
           )}
         </div>
 
-        <input
-          type="file"
-          id="profilePhoto"
-          name="profilePhoto"
-          accept=".jpg, .jpeg, .png"
-          className="form-input block rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-          onChange={onImgChange}
-        />
+        <div>
+          <input
+            type="file"
+            id="profilePhoto"
+            name="profilePhoto"
+            accept=".jpg, .jpeg, .png"
+            className="form-input block rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            onChange={onImgChange}
+          />
+          <p className="text-sm text-slate-600 mt-1">
+            Оберіть фото 200х200 пікселів <br />
+            (в форматі .jpg, .jpeg, .png)
+          </p>
+        </div>
       </div>
     </>
   );
