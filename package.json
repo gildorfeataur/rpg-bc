@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "server": "nodemon express.js"
+    "server": "nodemon express/express.js"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.16",

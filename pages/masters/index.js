@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Layout from "../../components/layout/layout";
 import Paginator from "../../components/paginator/paginator-controler";
 import Image from "next/image";
-import imgPlaceholder from "../../public/images/dice.jpg";
+import imgPlaceholder from "../../public/avatars/dice.jpg";
 import iconInstagram from "../../public/icons/instagram.svg";
 import iconFacebook from "../../public/icons/facebook.svg";
 import iconTelegram from "../../public/icons/telegram.svg";

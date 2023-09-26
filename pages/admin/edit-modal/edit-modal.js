@@ -1,5 +1,5 @@
 import { useState } from "react";
-import PhotoUpload from "../photo-upload/photo-upload";
+import PhotoUpload from "../photo-upload-block/photo-upload-block";
 
 export default function EditModal({ user, onSubmit }) {
   const [formReset, setFormReset] = useState(false);
