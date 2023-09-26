@@ -56,7 +56,7 @@ export default function MastersTable({ ...props }) {
                 <button
                   type="button"
                   data-id={item._id}
-                  onClick={props.userModalShow}
+                  onClick={props.editModalShow}
                   className="w-full py-0.5 px-2 text-white bg-sky-500 hover:bg-sky-700"
                 >
                   Редагувати

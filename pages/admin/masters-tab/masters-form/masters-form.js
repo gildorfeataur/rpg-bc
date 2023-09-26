@@ -8,7 +8,7 @@ export default function MastersForm({ onSubmit }) {
     setFormReset(true)
     setTimeout(() => {
       setFormReset(false)
-    }, 2000);
+    }, 1000);
   }
 
   return (
@@ -65,7 +65,7 @@ export default function MastersForm({ onSubmit }) {
       </div>
 
       <div className="form-group mt-3">
-        <PhotoUpload formReset={formReset} />
+        <PhotoUpload previewReset={formReset} />
       </div>
 
       <p className="mt-3 text-slate-500">* - Обов'язкові для заповнення поля</p>
@@ -75,7 +75,7 @@ export default function MastersForm({ onSubmit }) {
           type="submit"
           className="text-white rounded px-4 py-2 bg-lime-600 hover:bg-lime-500"
         >
-          Додати
+          Створити юзера
         </button>
         <button
           type="reset"

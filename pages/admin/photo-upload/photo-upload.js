@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-export default function PhotoUpload({ imgSource, formReset }) {
+export default function PhotoUpload({ imgSource, previewReset }) {
   const endpoint = "http://localhost:3000";
   const [imgPreview, setUserImg] = useState(null);
 
@@ -8,11 +8,11 @@ export default function PhotoUpload({ imgSource, formReset }) {
     const fileInput = document.querySelector("#profilePhoto");
     const file = fileInput.files[0];
 
-    if (formReset) {
+    if (previewReset) {
       URL.revokeObjectURL(file);
       setUserImg(null);
     }
-  }, [formReset]);
+  }, [previewReset]);
 
   const onImgChange = (event) => {
     event.preventDefault();
@@ -26,23 +26,15 @@ export default function PhotoUpload({ imgSource, formReset }) {
       <label htmlFor="profilePhoto">Фото профіля:</label>
       <div className="flex items-center mt-0.5 border py-1 px-2">
         <div className="flex mr-5 w-[120px] h-[120px] rounded-full border bg-slate-200 border-slate-500 overflow-hidden">
-          {imgSource ? (
+          {imgSource || imgPreview ? (
             <img
-              src={endpoint + imgSource}
+              src={imgPreview || (endpoint + imgSource)}
               alt="avatar"
               width={120}
               height={120}
               className="object-cover"
             />
-          ) : imgPreview ? (
-            <img
-              src={imgPreview}
-              alt="avatar"
-              width={120}
-              height={120}
-              className="object-cover"
-            />
-          ) : (
+          ) :  (
             <span className="m-auto text-gray-400">Без фото</span>
           )}
         </div>

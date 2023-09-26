@@ -1,11 +1,36 @@
-import classNames from "classnames";
+import { useState } from "react";
 import PhotoUpload from "../photo-upload/photo-upload";
 
-export default function EditModalView({ user, onSubmit, onClose }) {
+export default function EditModal({ user, onSubmit }) {
+  const [formReset, setFormReset] = useState(false);
+
+  const modalClose = () => {
+    const modal = document.getElementById("userChangeModal");
+    formResetHandler();
+    modal.close();
+  };
+
+  const formResetHandler = (e) => {
+    const form = document.getElementById("masterChangeForm");
+    form.reset();
+
+    setFormReset(true);
+    setTimeout(() => {
+      setFormReset(false);
+    }, 1000);
+  };
+
   return (
-    <>
+    <dialog
+      id="userChangeModal"
+      className="fixed inset-0 z-10 rounded shadow shadow-slate-400 p-4"
+    >
       <h3>Форма редагування юзера</h3>
-      <form id="masterChangeForm" onSubmit={onSubmit}>
+      <form
+        id="masterChangeForm"
+        onSubmit={onSubmit}
+        onReset={formResetHandler}
+      >
         <div className="form-group mt-3">
           <label htmlFor="name">Ім'я (не можна редагувати):</label>
           <input
@@ -62,7 +87,7 @@ export default function EditModalView({ user, onSubmit, onClose }) {
           />
         </div>
 
-        <PhotoUpload imgSource={user.photoPath} />
+        <PhotoUpload imgSource={user.photoPath} previewReset={formReset} />
 
         <div className="flex gap-5 mt-5 mb-3">
           <button
@@ -71,22 +96,22 @@ export default function EditModalView({ user, onSubmit, onClose }) {
           >
             Змінити
           </button>
-          <button
+          {/* <button
             type="reset"
             className="text-white rounded px-4 py-2 bg-sky-600 hover:bg-sky-500"
           >
             Очистити форму
-          </button>
+          </button> */}
           <button
             data-state="close"
             type="button"
             className="text-white rounded px-4 py-2 bg-rose-500 hover:bg-rose-400"
-            onClick={onClose}
+            onClick={modalClose}
           >
             Закрити
           </button>
         </div>
       </form>
-    </>
+    </dialog>
   );
 }

@@ -128,9 +128,6 @@ app.use(multer({ storage: storageConfig }).single("avatar"));
 app.post("/api/masters", async (req, res) => {
   if (!req.body) return res.sendStatus(400);
 
-  console.log(req.file);
-  console.log(req.body);
-
   const master = {
     name: req.body.name,
     telegram: req.body.telegram,
@@ -153,10 +150,15 @@ app.post("/api/masters", async (req, res) => {
 
 app.put("/api/masters/:id", jsonParser, async (req, res) => {
   if (!req.body) return res.sendStatus(400);
+  console.log(req.file);
+  console.log(req.body);
+
   const userTelegram = req.body.telegram;
   const userFacebook = req.body.facebook;
   const userInstagram = req.body.instagram;
-  const userPhotoPath = req.body.photoPath;
+  const userPhotoPath = req.file
+    ? `/${req.file.destination}/${req.file.originalname}`
+    : req.body.photoPath;
   const userDescription = req.body.description;
 
   const collection = req.app.locals.masters;
