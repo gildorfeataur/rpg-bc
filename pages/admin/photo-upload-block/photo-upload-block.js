@@ -1,4 +1,9 @@
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
+
+const imageLoader = ({ src, width, quality }) => {
+  return `http://127.0.0.1:5500${src}?w=${width}&q=${quality || 50}`;
+};
 
 export default function PhotoUpload({ imgSource, previewReset }) {
   const endpoint = "http://localhost:3000";
@@ -23,23 +28,24 @@ export default function PhotoUpload({ imgSource, previewReset }) {
 
   return (
     <>
-      <label htmlFor="profilePhoto">Фото профіля:</label>
+      <p >Фото профіля:</p>
       <div className="flex items-center mt-0.5 border py-1 px-2">
         <div className="flex mr-5 w-[120px] h-[120px] rounded-full border bg-slate-200 border-slate-500 overflow-hidden">
           {imgSource || imgPreview ? (
-            <img
-              src={imgPreview || (endpoint + imgSource)}
+            <Image
+              loader={imageLoader}
+              src={imgPreview || imgSource}
               alt="avatar"
               width={120}
               height={120}
               className="object-cover"
             />
-          ) :  (
+          ) : (
             <span className="m-auto text-gray-400">Без фото</span>
           )}
         </div>
 
-        <div>
+        <label htmlFor="profilePhoto">
           <input
             type="file"
             id="profilePhoto"
@@ -49,10 +55,10 @@ export default function PhotoUpload({ imgSource, previewReset }) {
             onChange={onImgChange}
           />
           <p className="text-sm text-slate-600 mt-1">
-            Оберіть фото 200х200 пікселів <br />
+            Оберіть фото розміром до 1mb <br />
             (в форматі .jpg, .jpeg, .png)
           </p>
-        </div>
+        </label>
       </div>
     </>
   );
