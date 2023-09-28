@@ -1,4 +1,4 @@
-import AdminTable from "../../../../components/admin-table/admin-table";
+import AdminTable from "../../admin-table/admin-table";
 
 export default function MastersTable({ ...props }) {
   return (
