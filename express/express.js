@@ -5,23 +5,23 @@ const mongoClient = new MongoClient("mongodb://127.0.0.1:27017/");
 const app = express();
 const jsonParser = express.json();
 
-const gamesController = require("./games/controller")
-const rulesController = require("./rules/controller")
-const mastersController = require("./masters/controller")
+const gamesController = require("./games/controller");
+const rulesController = require("./rules/controller");
+const mastersController = require("./masters/controller");
 
-const usersPhotos = "public/avatars";
-const storageConfig = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, usersPhotos);
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
-  },
-});
+const mastersImages = require("./masters/controller");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(`${__dirname}`));
-app.use(multer({ storage: storageConfig }).single("avatar"));
+app.use(
+  multer({
+    storage: mastersImages.storageConfig,
+    limits: {
+      fileSize: 1024 * 1024,
+      files: 1,
+    },
+  }).single("avatar")
+);
 
 (async () => {
   try {

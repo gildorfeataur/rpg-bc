@@ -1,3 +1,6 @@
+const multer = require("multer");
+const objectId = require("mongodb").ObjectId;
+
 exports.getMasters = async (req, res) => {
   const collection = req.app.locals.masters;
   try {
@@ -32,7 +35,6 @@ exports.addMaster = async (req, res) => {
   }
 }
 
-const objectId = require("mongodb").ObjectId;
 exports.changeMaster = async (req, res) => {
   if (!req.body) return res.sendStatus(400);
   console.log(req.file);
@@ -83,3 +85,12 @@ exports.deleteMaster = async (req, res) => {
     res.sendStatus(500);
   }
 }
+
+exports.storageConfig = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "public/avatars");
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
