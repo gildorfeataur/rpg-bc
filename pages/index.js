@@ -2,6 +2,7 @@ import { getSortedPostsData } from "../utils/games";
 import Layout from "../components/layout/layout";
 import Link from "next/link";
 import FormattedDate from "../components/date/date";
+import Image from "next/image";
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
@@ -55,6 +56,7 @@ export default function Home({ allPostsData }) {
               </article>
             ))}
           </div>
+          <Image src="/avatars/profile.jpg" width={120} height={120} alt="ava" />
         </div>
       </div>
     </Layout>

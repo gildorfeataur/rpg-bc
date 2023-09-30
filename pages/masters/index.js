@@ -24,9 +24,6 @@ export async function getStaticProps() {
 }
 
 export default function Masters({ masters }) {
-  // const { origin } = location;
-  // const endpoint = `${origin}`;
-  const endpoint = "http://localhost:3000";
   const itemsPerPage = 6;
   const [pageCollection, setPageCollection] = useState(
     masters.slice(0, itemsPerPage)
@@ -48,23 +45,13 @@ export default function Masters({ masters }) {
               key={item._id}
               className="flex flex-col items-center gap-4 h-72"
             >
-              {item.photoPath ? (
-                <img
-                  className="rounded-full border bg-slate-200 border-slate-500 w-[120px] h-[120px] object-cover"
-                  src={`${endpoint}${item.photoPath}`}
-                  alt="avatar"
-                  width={120}
-                  height={120}
-                />
-              ) : (
-                <Image
-                  className="rounded-full border bg-slate-200 border-slate-500"
-                  src={imgPlaceholder}
-                  alt="avatar"
-                  width={120}
-                  height={120}
-                />
-              )}
+              <Image
+                className="rounded-full border bg-slate-200 border-slate-500"
+                src={item.photoPath || imgPlaceholder}
+                alt="avatar"
+                width={120}
+                height={120}
+              />
 
               <h2 className="text-xl font-semibold leading-7 text-gray-900">
                 {item.name}

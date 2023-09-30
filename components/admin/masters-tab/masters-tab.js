@@ -5,8 +5,6 @@ import MastersTable from "./masters-table/masters-table";
 import MastersForm from "./masters-form/masters-form";
 
 export default function MastersTab() {
-  // const { origin } = location;
-  // const endpoint = `${origin}`;
   const endpoint = "http://localhost:3000";
   const [masters, setMasters] = useState([]);
   const [user, setUser] = useState("");
@@ -96,7 +94,7 @@ export default function MastersTab() {
   };
 
   const deleteUser = async (event) => {
-    let id = event.target.getAttribute("data-id");
+    let id = event.currentTarget.dataset.id;
     const response = await fetch(`${endpoint}/api/masters/` + id, {
       method: "DELETE",
       headers: { Accept: "application/json" },
@@ -118,13 +116,12 @@ export default function MastersTab() {
 
   const editModalShow = (event) => {
     //get user
-    let id = event.target.getAttribute("data-id");
-    const user = masters.find((elem) => elem._id === id);
+    let id = event.currentTarget.dataset.id;
+    setUser(masters.find((elem) => elem._id === id))
 
     //show modal
     const modal = document.getElementById("userChangeModal");
     modal.showModal();
-    setUser(user);
   };
 
   return (

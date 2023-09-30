@@ -10,7 +10,7 @@ exports.getMasters = async (req, res) => {
     console.log(err);
     res.sendStatus(500);
   }
-}
+};
 
 exports.addMaster = async (req, res) => {
   if (!req.body) return res.sendStatus(400);
@@ -20,20 +20,22 @@ exports.addMaster = async (req, res) => {
     telegram: req.body.telegram,
     facebook: req.body.facebook,
     instagram: req.body.instagram,
-    photoPath: `/${req.file.destination}/${req.file.originalname}`,
+    photoPath: req.file ? `/avatars/${req.file.originalname}` : "",
     description: req.body.description,
   };
 
   const collection = req.app.locals.masters;
 
   try {
-    await collection.insertOne(master);
-    await res.send(master);
+    const result = await collection.insertOne(master);
+    if (result) {
+      res.send(result);
+    }
   } catch (err) {
     console.log(err);
     res.sendStatus(500);
   }
-}
+};
 
 exports.changeMaster = async (req, res) => {
   if (!req.body) return res.sendStatus(400);
@@ -44,7 +46,7 @@ exports.changeMaster = async (req, res) => {
   const userFacebook = req.body.facebook;
   const userInstagram = req.body.instagram;
   const userPhotoPath = req.file
-    ? `/${req.file.destination}/${req.file.originalname}`
+    ? `/avatars/${req.file.originalname}`
     : req.body.photoPath;
   const userDescription = req.body.description;
 
@@ -71,7 +73,7 @@ exports.changeMaster = async (req, res) => {
     console.log(err);
     res.sendStatus(500);
   }
-}
+};
 
 exports.deleteMaster = async (req, res) => {
   const collection = req.app.locals.masters;
@@ -84,7 +86,7 @@ exports.deleteMaster = async (req, res) => {
     console.log(err);
     res.sendStatus(500);
   }
-}
+};
 
 exports.storageConfig = multer.diskStorage({
   destination: (req, file, cb) => {

@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
-const imageLoader = ({ src, width, quality }) => {
-  return `http://127.0.0.1:5500${src}?w=${width}&q=${quality || 50}`;
-};
-
 export default function PhotoUpload({ imgSource, previewReset }) {
-  const endpoint = "http://localhost:3000";
   const [imgPreview, setUserImg] = useState(null);
 
   useEffect(() => {
@@ -28,17 +23,17 @@ export default function PhotoUpload({ imgSource, previewReset }) {
 
   return (
     <>
-      <p >Фото профіля:</p>
+      <p className="font-medium text-gray-700">Фото профіля:</p>
       <div className="flex items-center mt-0.5 border py-1 px-2">
         <div className="flex mr-5 w-[120px] h-[120px] rounded-full border bg-slate-200 border-slate-500 overflow-hidden">
           {imgSource || imgPreview ? (
             <Image
-              loader={imageLoader}
-              src={imgPreview || imgSource}
+              src={imgSource || imgPreview}
               alt="avatar"
               width={120}
               height={120}
               className="object-cover"
+              loading="lazy"
             />
           ) : (
             <span className="m-auto text-gray-400">Без фото</span>

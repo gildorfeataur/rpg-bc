@@ -48,7 +48,7 @@ app.delete("/api/rules/:id", rulesController.deleteRule);
 
 //MASTERS
 app.get("/api/masters", mastersController.getMasters);
-app.post("/api/masters", mastersController.addMaster);
+app.post("/api/masters", jsonParser, mastersController.addMaster);
 app.put("/api/masters/:id", jsonParser, mastersController.changeMaster);
 app.delete("/api/masters/:id", mastersController.deleteMaster);
 

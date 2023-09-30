@@ -6,8 +6,6 @@ import GamesTab from "../../components/admin/games-tab/games-tab";
 import MastersTab from "../../components/admin/masters-tab/masters-tab";
 import RulesTab from "../../components/admin/rules-tab/rules-tab";
 
-const siteTitle = "Admin panel";
-
 export default function AdminPage({}) {
   const [isPending, startTransition] = useTransition();
   const [tab, setTab] = useState("masters");
@@ -21,7 +19,7 @@ export default function AdminPage({}) {
   return (
     <Layout>
       <Head>
-        <title>{siteTitle}</title>
+        <title>RPG-BC Admin</title>
       </Head>
 
       <div className="flex gap-1">
