@@ -12,7 +12,7 @@ export default function MastersForm({ onSubmit }) {
   }
 
   return (
-    <form id="masterForm" name="masterForm" onReset={formResetHandler} onSubmit={onSubmit}>
+    <form onReset={formResetHandler} onSubmit={onSubmit}>
       <div className="form-group mt-3">
         <label htmlFor="name">Ім'я*:</label>
         <input
@@ -65,7 +65,7 @@ export default function MastersForm({ onSubmit }) {
       </div>
 
       <div className="form-group mt-3">
-        <PhotoUpload previewReset={formReset} />
+        <PhotoUpload previewReset={formReset} title="Фото профіля" />
       </div>
 
       <p className="mt-3 text-slate-500">* - Обов'язкові для заповнення поля</p>

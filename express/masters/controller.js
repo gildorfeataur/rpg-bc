@@ -1,5 +1,6 @@
 const multer = require("multer");
 const objectId = require("mongodb").ObjectId;
+const avatarsFolder = "avatars";
 
 exports.getMasters = async (req, res) => {
   const collection = req.app.locals.masters;
@@ -20,7 +21,7 @@ exports.addMaster = async (req, res) => {
     telegram: req.body.telegram,
     facebook: req.body.facebook,
     instagram: req.body.instagram,
-    photoPath: req.file ? `/avatars/${req.file.originalname}` : "",
+    photoPath: req.file ? `/${avatarsFolder}/${req.file.originalname}` : "",
     description: req.body.description,
   };
 
@@ -39,14 +40,12 @@ exports.addMaster = async (req, res) => {
 
 exports.changeMaster = async (req, res) => {
   if (!req.body) return res.sendStatus(400);
-  console.log(req.file);
-  console.log(req.body);
 
   const userTelegram = req.body.telegram;
   const userFacebook = req.body.facebook;
   const userInstagram = req.body.instagram;
   const userPhotoPath = req.file
-    ? `/avatars/${req.file.originalname}`
+    ? `/${avatarsFolder}/${req.file.originalname}`
     : req.body.photoPath;
   const userDescription = req.body.description;
 
@@ -67,8 +66,7 @@ exports.changeMaster = async (req, res) => {
       { returnDocument: "after" }
     );
 
-    const user = result;
-    if (user) res.send(user);
+    if (result) res.send(result);
   } catch (err) {
     console.log(err);
     res.sendStatus(500);
@@ -90,7 +88,7 @@ exports.deleteMaster = async (req, res) => {
 
 exports.storageConfig = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "public/avatars");
+    cb(null, `public/${avatarsFolder}`);
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);

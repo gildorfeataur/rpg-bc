@@ -9,19 +9,27 @@ const gamesController = require("./games/controller");
 const rulesController = require("./rules/controller");
 const mastersController = require("./masters/controller");
 
-const mastersImages = require("./masters/controller");
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(`${__dirname}`));
-app.use(
-  multer({
-    storage: mastersImages.storageConfig,
-    limits: {
-      fileSize: 1024 * 1024,
-      files: 1,
-    },
-  }).single("avatar")
-);
+
+// app.use(
+//   multer({
+//     storage: mastersController.storageConfig,
+//     limits: {
+//       fileSize: 1024 * 1024,
+//       files: 1,
+//     },
+//   }).single("userImg")
+// );
+// app.use(
+//   multer({
+//     storage: rulesController.storageConfig,
+//     limits: {
+//       fileSize: 1024 * 1024,
+//       files: 1,
+//     },
+//   }).single("ruleImg")
+// );
 
 (async () => {
   try {
@@ -43,15 +51,67 @@ app.delete("/api/games/:id", gamesController.deleteGame);
 
 //RULES
 app.get("/api/rules", rulesController.getRules);
-app.post("/api/rules", jsonParser, rulesController.addRule);
+
+app.post(
+  "/api/rules",
+  multer({
+    storage: rulesController.storageConfig,
+    limits: {
+      fileSize: 1024 * 1024,
+      files: 1,
+    },
+  }).single("ruleImg"),
+  jsonParser,
+  rulesController.addRule
+);
+
+app.put(
+  "/api/rules/:id",
+  multer({
+    storage: rulesController.storageConfig,
+    limits: {
+      fileSize: 1024 * 1024,
+      files: 1,
+    },
+  }).single("ruleImg"),
+  jsonParser,
+  rulesController.changeRule
+);
+
 app.delete("/api/rules/:id", rulesController.deleteRule);
 
 //MASTERS
 app.get("/api/masters", mastersController.getMasters);
-app.post("/api/masters", jsonParser, mastersController.addMaster);
-app.put("/api/masters/:id", jsonParser, mastersController.changeMaster);
+
+app.post(
+  "/api/masters",
+  multer({
+    storage: mastersController.storageConfig,
+    limits: {
+      fileSize: 1024 * 1024,
+      files: 1,
+    },
+  }).single("userImg"),
+  jsonParser,
+  mastersController.addMaster
+);
+
+app.put(
+  "/api/masters/:id",
+  multer({
+    storage: mastersController.storageConfig,
+    limits: {
+      fileSize: 1024 * 1024,
+      files: 1,
+    },
+  }).single("userImg"),
+  jsonParser,
+  mastersController.changeMaster
+);
+
 app.delete("/api/masters/:id", mastersController.deleteMaster);
 
+//CLOSE PROGRAM
 process.on("SIGINT", async () => {
   await mongoClient.close();
   process.exit();

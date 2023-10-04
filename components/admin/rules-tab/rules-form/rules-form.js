@@ -1,6 +1,18 @@
+import { useState } from "react";
+import PhotoUpload from "../../photo-upload-block/photo-upload-block";
+
 export default function RulesForm({ onSubmit }) {
+  const [formReset, setFormReset] = useState(false)
+
+  const formResetHandler = () => {
+    setFormReset(true)
+    setTimeout(() => {
+      setFormReset(false)
+    }, 1000);
+  }
+
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} onReset={formResetHandler}>
       <div className="form-group mt-3">
         <label htmlFor="title">Назва гри*:</label>
         <input
@@ -48,6 +60,10 @@ export default function RulesForm({ onSubmit }) {
           placeholder="Пара речень про саму гру (~200 символів)"
           maxLength={300}
         />
+      </div>
+
+      <div className="form-group mt-3">
+        <PhotoUpload previewReset={formReset} title="Зображення" />
       </div>
 
       <p className="mt-1 text-slate-500">* - Обов'язкові для заповнення поля</p>

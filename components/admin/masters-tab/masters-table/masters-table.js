@@ -41,8 +41,8 @@ export default function MastersTable({ ...props }) {
                 <span className="text-gray-400">не вказаний</span>
               )}
             </td>
-            <td className="border px-2 text-center">
-              <p className="max-w-[170px] truncate ...">{item.photoPath}</p>
+            <td className="border px-2 text-left">
+              <p className="max-w-[200px] truncate ...">{item.photoPath}</p>
             </td>
             <td className="border px-2">
               {item.description ? (

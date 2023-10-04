@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-
-import EditModal from "../edit-modal/edit-modal";
 import MastersTable from "./masters-table/masters-table";
 import MastersForm from "./masters-form/masters-form";
+import MastersEditModal from "./masters-edit-modal/masters-edit-modal";
 
 export default function MastersTab() {
   const endpoint = "http://localhost:3000";
@@ -32,7 +31,7 @@ export default function MastersTab() {
     const file = fileInput.files[0];
     let formData = new FormData();
 
-    formData.append("avatar", file);
+    formData.append("userImg", file);
     formData.append("name", event.target.name.value);
     formData.append("description", event.target.description.value);
     formData.append("telegram", event.target.telegram.value);
@@ -63,7 +62,7 @@ export default function MastersTab() {
     const file = fileInput.files[0];
     let formData = new FormData();
 
-    formData.append("avatar", file);
+    formData.append("userImg", file);
     formData.append("photoPath", user.photoPath);
     formData.append("name", event.target.name.value);
     formData.append("description", event.target.description.value);
@@ -76,7 +75,7 @@ export default function MastersTab() {
       body: formData,
     });
     if (response.ok === true) {
-      const modal = document.getElementById("userChangeModal");
+      const modal = document.getElementById("dataChangeModal");
       modal.close();
 
       const master = await response.json();
@@ -115,12 +114,10 @@ export default function MastersTab() {
   };
 
   const editModalShow = (event) => {
-    //get user
     let id = event.currentTarget.dataset.id;
     setUser(masters.find((elem) => elem._id === id))
 
-    //show modal
-    const modal = document.getElementById("userChangeModal");
+    const modal = document.getElementById("dataChangeModal");
     modal.showModal();
   };
 
@@ -135,7 +132,7 @@ export default function MastersTab() {
         deleteItem={deleteUser}
       />
 
-      <EditModal user={user} onSubmit={changeUser} />
+      <MastersEditModal data={user} onSubmit={changeUser}/>
     </>
   );
 }

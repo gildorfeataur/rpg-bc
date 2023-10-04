@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
-export default function PhotoUpload({ imgSource, previewReset }) {
+export default function PhotoUpload({ imgSource, formReset, title }) {
   const [imgPreview, setUserImg] = useState(null);
 
   useEffect(() => {
     const fileInput = document.querySelector("#profilePhoto");
     const file = fileInput.files[0];
 
-    if (previewReset) {
+    if (formReset) {
       URL.revokeObjectURL(file);
       setUserImg(null);
     }
-  }, [previewReset]);
+  }, [formReset]);
 
   const onImgChange = (event) => {
     event.preventDefault();
@@ -23,7 +23,7 @@ export default function PhotoUpload({ imgSource, previewReset }) {
 
   return (
     <>
-      <p className="font-medium text-gray-700">Фото профіля:</p>
+      <p className="font-medium text-gray-700">{title ? title : 'Фото'}</p>
       <div className="flex items-center mt-0.5 border py-1 px-2">
         <div className="flex mr-5 w-[120px] h-[120px] rounded-full border bg-slate-200 border-slate-500 overflow-hidden">
           {imgSource || imgPreview ? (

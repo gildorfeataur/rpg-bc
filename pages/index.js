@@ -56,7 +56,7 @@ export default function Home({ allPostsData }) {
               </article>
             ))}
           </div>
-          <Image src="/avatars/profile.jpg" width={120} height={120} alt="ava" />
+          <Image src="/avatars/profile.jpg" width={120} height={120} alt="ava" priority={true} />
         </div>
       </div>
     </Layout>
