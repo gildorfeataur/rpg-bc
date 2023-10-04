@@ -19,7 +19,7 @@ export default function GamesTable({ ...props }) {
       </thead>
       <tbody>
         {props.data.map((item) => (
-          <tr key={item._id}>
+          <tr key={item._id} className="hover:bg-slate-100">
             <td className="border p-1.5">{item.title}</td>
             <td className="border p-1.5">{item.date}</td>
             <td className="border p-1.5">{item.type}</td>

@@ -16,7 +16,7 @@ export default function RulesTable({ ...props }) {
       <tbody>
         {props.data
           ? props.data.map((item) => (
-              <tr key={item._id}>
+              <tr key={item._id} className="hover:bg-slate-100">
                 <td className="border px-2 text-center">{item.title}</td>
                 <td className="border px-2 text-center">
                   <a href={item.link}>Link</a>

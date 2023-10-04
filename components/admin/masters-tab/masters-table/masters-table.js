@@ -16,7 +16,7 @@ export default function MastersTable({ ...props }) {
       </thead>
       <tbody>
         {props.data.map((item) => (
-          <tr key={item._id}>
+          <tr key={item._id} className="hover:bg-slate-100">
             <td className="border px-2 text-center">{item.name}</td>
             <td className="border px-2 text-center">
               <a target="_blank" href={item.telegram}>
