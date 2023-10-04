@@ -41,9 +41,9 @@ export default function Rules({ rules }) {
               key={item._id}
             >
               <div className="flex justify-center items-center mr-4 border w-[140px] h-[140px] shrink-0 bg-neutral-100">
-                {item.img ? (
+                {item.photoPath ? (
                   <img
-                    src={item.img}
+                    src={item.photoPath}
                     alt="img"
                     className=""
                     width={140}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import RulesTable from "./rules-table/rules-table";
 import RulesForm from "./rules-form/rules-form";
-import EditModal from "../edit-modal/edit-modal";
+import RulesEditModal from "./rules-edit-modal/rules-edit-modal";
 
 export default function RulesTab() {
   const endpoint = "http://localhost:3000";
@@ -86,7 +86,7 @@ export default function RulesTab() {
       });
       if (refetch.ok === true) {
         const rules = await refetch.json();
-        setMasters(rules);
+        setRules(rules);
       }
     }
   };
@@ -131,7 +131,7 @@ export default function RulesTab() {
         editModalShow={editModalShow}
       />
 
-      <EditModal data={rule} onSubmit={changeRule} />
+      <RulesEditModal data={rule} onSubmit={changeRule} />
     </>
   );
 }
