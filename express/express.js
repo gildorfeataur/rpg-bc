@@ -91,7 +91,7 @@ app.post(
       fileSize: 1024 * 1024,
       files: 1,
     },
-  }).single("userImg"),
+  }).single("masterImg"),
   jsonParser,
   mastersController.addMaster
 );

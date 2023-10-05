@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import MastersTable from "./masters-table/masters-table";
 import MastersForm from "./masters-form/masters-form";
 import MastersEditModal from "./masters-edit-modal/masters-edit-modal";
+import DeleteModal from "../delete-modal/delete-modal";
 
 export default function MastersTab() {
   const endpoint = "http://localhost:3000";
   const [masters, setMasters] = useState([]);
-  const [user, setUser] = useState("");
+  const [master, setMaster] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,7 +32,7 @@ export default function MastersTab() {
     const file = fileInput.files[0];
     let formData = new FormData();
 
-    formData.append("userImg", file);
+    formData.append("masterImg", file);
     formData.append("name", event.target.name.value);
     formData.append("description", event.target.description.value);
     formData.append("telegram", event.target.telegram.value);
@@ -62,15 +63,15 @@ export default function MastersTab() {
     const file = fileInput.files[0];
     let formData = new FormData();
 
-    formData.append("userImg", file);
-    formData.append("photoPath", user.photoPath);
+    formData.append("masterImg", file);
+    formData.append("photoPath", master.photoPath);
     formData.append("name", event.target.name.value);
     formData.append("description", event.target.description.value);
     formData.append("telegram", event.target.telegram.value);
     formData.append("facebook", event.target.facebook.value);
     formData.append("instagram", event.target.instagram.value);
 
-    const response = await fetch(`${endpoint}/api/masters/` + user._id, {
+    const response = await fetch(`${endpoint}/api/masters/` + master._id, {
       method: "PUT",
       body: formData,
     });
@@ -94,7 +95,7 @@ export default function MastersTab() {
 
   const deleteUser = async (event) => {
     let id = event.currentTarget.dataset.id;
-    const response = await fetch(`${endpoint}/api/masters/` + id, {
+    const response = await fetch(`${endpoint}/api/masters/${master._id}`, {
       method: "DELETE",
       headers: { Accept: "application/json" },
     });
@@ -109,15 +110,25 @@ export default function MastersTab() {
       if (refetch.ok === true) {
         const masters = await refetch.json();
         setMasters(masters);
+        const modal = document.getElementById("deleteModal");
+        modal.close();
       }
     }
   };
 
   const editModalShow = (event) => {
     let id = event.currentTarget.dataset.id;
-    setUser(masters.find((elem) => elem._id === id))
+    setMaster(masters.find((elem) => elem._id === id));
 
     const modal = document.getElementById("dataChangeModal");
+    modal.showModal();
+  };
+
+  const deleteModalShow = (event) => {
+    let id = event.currentTarget.dataset.id;
+    setMaster(masters.find((elem) => elem._id === id));
+
+    const modal = document.getElementById("deleteModal");
     modal.showModal();
   };
 
@@ -129,10 +140,12 @@ export default function MastersTab() {
         data={masters}
         caption="Список майстрів"
         editModalShow={editModalShow}
-        deleteItem={deleteUser}
+        deleteItem={deleteModalShow}
       />
 
-      <MastersEditModal data={user} onSubmit={changeUser}/>
+      <MastersEditModal data={master} onSubmit={changeUser} />
+
+      <DeleteModal onSubmit={deleteUser} title="Видалити майстра?" />
     </>
   );
 }

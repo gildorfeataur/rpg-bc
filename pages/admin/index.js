@@ -8,7 +8,7 @@ import RulesTab from "../../components/admin/rules-tab/rules-tab";
 
 export default function AdminPage({}) {
   const [isPending, startTransition] = useTransition();
-  const [tab, setTab] = useState("masters");
+  const [tab, setTab] = useState("rules");
 
   function selectTab(nextTab) {
     startTransition(() => {

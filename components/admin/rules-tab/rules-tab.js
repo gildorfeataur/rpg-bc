@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import RulesTable from "./rules-table/rules-table";
 import RulesForm from "./rules-form/rules-form";
 import RulesEditModal from "./rules-edit-modal/rules-edit-modal";
+import DeleteModal from "../delete-modal/delete-modal";
 
 export default function RulesTab() {
   const endpoint = "http://localhost:3000";
@@ -37,7 +38,7 @@ export default function RulesTab() {
     formData.append("ualink", event.target.ualink.value);
     formData.append("description", event.target.description.value);
 
-    debugger
+    debugger;
     const response = await fetch(`${endpoint}/api/rules`, {
       method: "POST",
       body: formData,
@@ -54,7 +55,7 @@ export default function RulesTab() {
         URL.revokeObjectURL(file);
       }
     }
-  }
+  };
 
   const changeRule = async (event) => {
     event.preventDefault();
@@ -91,9 +92,8 @@ export default function RulesTab() {
     }
   };
 
-  const deleteRule = async (event) => {
-    let id = event.currentTarget.dataset.id;
-    const response = await fetch(`${endpoint}/api/rules/` + id, {
+  const deleteRule = async () => {
+    const response = await fetch(`${endpoint}/api/rules/${rule._id}`, {
       method: "DELETE",
       headers: { Accept: "application/json" },
     });
@@ -108,15 +108,25 @@ export default function RulesTab() {
       if (refetch.ok === true) {
         const rules = await refetch.json();
         setRules(rules);
+        const modal = document.getElementById("deleteModal");
+        modal.close();
       }
     }
-  }
+  };
 
   const editModalShow = (event) => {
     let id = event.currentTarget.dataset.id;
-    setRule(rules.find((elem) => elem._id === id))
+    setRule(rules.find((elem) => elem._id === id));
 
     const modal = document.getElementById("dataChangeModal");
+    modal.showModal();
+  };
+
+  const deleteModalShow = (event) => {
+    let id = event.currentTarget.dataset.id;
+    setRule(rules.find((elem) => elem._id === id));
+
+    const modal = document.getElementById("deleteModal");
     modal.showModal();
   };
 
@@ -127,11 +137,13 @@ export default function RulesTab() {
       <RulesTable
         data={rules}
         caption="Список правил"
-        deleteItem={deleteRule}
+        deleteItem={deleteModalShow}
         editModalShow={editModalShow}
       />
 
       <RulesEditModal data={rule} onSubmit={changeRule} />
+
+      <DeleteModal onSubmit={deleteRule} title="Видалити правило?" />
     </>
   );
 }
