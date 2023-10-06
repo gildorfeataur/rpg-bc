@@ -22,13 +22,8 @@ export default function Layout({ children }) {
         <meta name="twitter:card" content="summary_large_image" />
         <title>{siteTitle}</title>
       </Head>
-      <Header/>
-      <main className="container mx-auto">
-        {/* <aside>aside</aside> */}
-
-        {children}
-
-      </main>
+      <Header />
+      <main className="container mx-auto px-2 sm:px-6 lg:px-8">{children}</main>
     </>
   );
 }
