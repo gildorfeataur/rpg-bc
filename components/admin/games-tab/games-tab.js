@@ -3,6 +3,7 @@ import GamesForm from "./games-form/games-form";
 import GamesTable from "./games-table/games-table";
 
 export default function GamesTab() {
+  const endpoint = "http://localhost:3000";
   const [games, setGames] = useState([]);
   const [masters, setMasters] = useState([]);
   const [rules, setRules] = useState([]);
@@ -10,7 +11,7 @@ export default function GamesTab() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("http://localhost:3000/api/games", {
+      const response = await fetch(`${endpoint}/api/games`, {
         method: "GET",
         headers: { Accept: "application/json" },
       });
@@ -28,7 +29,7 @@ export default function GamesTab() {
   async function addGame(event) {
     event.preventDefault();
 
-    const response = await fetch("http://localhost:3000/api/games", {
+    const response = await fetch(`${endpoint}/api/games`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -48,7 +49,7 @@ export default function GamesTab() {
       }),
     });
     if (response.ok === true) {
-      const refetch = await fetch("http://localhost:3000/api/games", {
+      const refetch = await fetch(`${endpoint}/api/games`, {
         method: "GET",
         headers: { Accept: "application/json" },
       });
@@ -62,7 +63,7 @@ export default function GamesTab() {
 
   async function deleteGame(e) {
     let id = e.target.getAttribute("data-game-id");
-    const response = await fetch("http://localhost:3000/api/games/" + id, {
+    const response = await fetch(`${endpoint}/api/games/` + id, {
       method: "DELETE",
       headers: { Accept: "application/json" },
     });
@@ -70,7 +71,7 @@ export default function GamesTab() {
       const game = await response.json();
       console.log(`"${game.title}" was deleted! (id: ${game._id})`);
 
-      const refetch = await fetch("http://localhost:3000/api/games", {
+      const refetch = await fetch(`${endpoint}/api/games`, {
         method: "GET",
         headers: { Accept: "application/json" },
       });
@@ -82,7 +83,7 @@ export default function GamesTab() {
   }
 
   const fetchMasters = async () => {
-    const response = await fetch("http://localhost:3000/api/masters", {
+    const response = await fetch(`${endpoint}/api/masters`, {
       method: "GET",
       headers: { Accept: "application/json" },
     });
@@ -93,7 +94,7 @@ export default function GamesTab() {
   };
 
   const fetchRules = async () => {
-    const response = await fetch("http://localhost:3000/api/rules", {
+    const response = await fetch(`${endpoint}/api/rules`, {
       method: "GET",
       headers: { Accept: "application/json" },
     });

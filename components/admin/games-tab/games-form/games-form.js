@@ -41,14 +41,14 @@ export default function GamesForm({...props}) {
               <option value="" style={{ color: "#888" }}>
                 Оберіть тип
               </option>
-              <option value={"board-game-classic"}>Настільна</option>
-              <option value={"board-game-role"}>Настільна рольова</option>
-              <option value={"board-game-cards"}>Настільна карткова</option>
-              <option value={"collection-card-game"}>Колекційна карткова</option>
-              <option value={"board-game-wargame"}>Настільний варгейм</option>
-              <option value={"indoor-game"}>Камеральна</option>
-              <option value={"outdoor-game"}>Полігонна</option>
-              <option value={"city-game"}>Міська</option>
+              <option>Настільна</option>
+              <option>Настільна рольова</option>
+              <option>Настільна карткова</option>
+              <option>Колекційна карткова</option>
+              <option>Настільний варгейм</option>
+              <option>Камеральна</option>
+              <option>Полігонна</option>
+              <option>Міська</option>
             </select>
           </div>
 
