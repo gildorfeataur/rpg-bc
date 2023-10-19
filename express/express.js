@@ -1,7 +1,14 @@
 const express = require("express");
 const multer = require("multer");
-const MongoClient = require("mongodb").MongoClient;
-const mongoClient = new MongoClient("mongodb://127.0.0.1:27017/");
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = "mongodb+srv://gildorfeataur:GildorFeataur12385@cluster0.hmifjgt.mongodb.net/?retryWrites=true&w=majority";
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
 const app = express();
 const jsonParser = express.json();
 
@@ -12,33 +19,14 @@ const mastersController = require("./masters/controller");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(`${__dirname}`));
 
-// app.use(
-//   multer({
-//     storage: mastersController.storageConfig,
-//     limits: {
-//       fileSize: 1024 * 1024,
-//       files: 1,
-//     },
-//   }).single("userImg")
-// );
-// app.use(
-//   multer({
-//     storage: rulesController.storageConfig,
-//     limits: {
-//       fileSize: 1024 * 1024,
-//       files: 1,
-//     },
-//   }).single("ruleImg")
-// );
-
 (async () => {
   try {
-    await mongoClient.connect();
-    app.locals.games = mongoClient.db("rpg-bc").collection("games");
-    app.locals.masters = mongoClient.db("rpg-bc").collection("masters");
-    app.locals.rules = mongoClient.db("rpg-bc").collection("rules");
+    await client.connect();
+    app.locals.games = client.db("rpg-bc").collection("games");
+    app.locals.masters = client.db("rpg-bc").collection("masters");
+    app.locals.rules = client.db("rpg-bc").collection("rules");
     app.listen(3000);
-    console.log("Server working...");
+    console.log("Server working at port:3000");
   } catch (err) {
     return console.log(err);
   }
@@ -113,6 +101,6 @@ app.delete("/api/masters/:id", mastersController.deleteMaster);
 
 //CLOSE PROGRAM
 process.on("SIGINT", async () => {
-  await mongoClient.close();
+  await client.close();
   process.exit();
 });
