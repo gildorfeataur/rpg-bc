@@ -1,12 +1,11 @@
 {
   "name": "rpg-bc",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3001",
+    "dev": "next dev -p 5000",
     "build": "next build",
-    "start": "next start -p 8080",
-    "server": "nodemon express/express.js"
+    "start": "next start -p 5000"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.16",
@@ -14,20 +13,18 @@
     "classnames": "^2.3.2",
     "clsx": "^2.0.0",
     "date-fns": "^2.30.0",
-    "express": "^4.18.2",
-    "mongodb": "^6.0.0",
     "next": "latest",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "remark": "^14.0.3",
     "remark-html": "^15.0.2",
-    "sass": "^1.66.1"
+    "sass": "^1.66.1",
+    "sharp": "^0.32.6"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.6",
     "autoprefixer": "^10.4.14",
     "gray-matter": "^4.0.3",
-    "multer": "^1.4.5-lts.1",
     "postcss": "^8.4.27",
     "tailwindcss": "^3.3.3"
   }

@@ -3,14 +3,12 @@ import Layout from "../../components/layout/layout";
 import Paginator from "../../components/paginator/paginator-controler";
 
 export async function getStaticProps() {
-  let rules = [];
-  const response = await fetch("http://localhost:3000/api/rules", {
+  const endpoint = "http://localhost:3000";
+  const response = await fetch(`${endpoint}/api/rules`, {
     method: "GET",
     headers: { Accept: "application/json" },
   });
-  if (response.ok === true) {
-    rules = await response.json();
-  }
+    const rules = await response.json();
   return {
     props: {
       rules,

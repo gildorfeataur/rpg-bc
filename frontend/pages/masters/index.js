@@ -8,14 +8,12 @@ import iconFacebook from "../../public/icons/facebook.svg";
 import iconTelegram from "../../public/icons/telegram.svg";
 
 export async function getStaticProps() {
-  let masters = [];
-  const response = await fetch("http://localhost:3000/api/masters", {
+  const endpoint = "http://localhost:3000";
+  const response = await fetch(`${endpoint}/api/masters`, {
     method: "GET",
     headers: { Accept: "application/json" },
   });
-  if (response.ok === true) {
-    masters = await response.json();
-  }
+    const masters = await response.json();
   return {
     props: {
       masters,
