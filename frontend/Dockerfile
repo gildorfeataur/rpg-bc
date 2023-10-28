@@ -1,12 +1,11 @@
 # Start your image with a node base image
-FROM node:18
+FROM node:18-alpine
 
 WORKDIR /usr/src/app
 
-COPY package.json .
-COPY package-lock.json .
+COPY package*.json ./
 
-RUN npm ci
+RUN npm install
 
 COPY . .
 
@@ -14,4 +13,4 @@ RUN npm run build
 
 EXPOSE 5000
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "start"]

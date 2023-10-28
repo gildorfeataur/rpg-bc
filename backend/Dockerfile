@@ -1,14 +1,13 @@
 # Start your image with a node base image
-FROM node:alpine
+FROM node:18-alpine
 
 WORKDIR /usr/src/app
 
-COPY package.json .
-COPY package-lock.json .
+COPY package*.json ./
 
 RUN npm ci
 
-COPY . .
+COPY . /usr/src/app
 
 EXPOSE 3000
 

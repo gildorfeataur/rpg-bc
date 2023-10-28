@@ -1,6 +1,5 @@
 services:
   backend:
-    # restart: always
     container_name: backend
     build:
       context: ./backend
@@ -9,17 +8,13 @@ services:
       - /usr/src/app/node_modules
     networks:
       - react-express
-    environment:
-      - NODE_ENV=production
     ports:
       - 3000:3000
 
   frontend:
-    # restart: always
     container_name: frontend
     build:
       context: ./frontend
-    # stdin_open: true
     volumes:
       - ./frontend:/usr/src/app
       - /usr/src/app/node_modules

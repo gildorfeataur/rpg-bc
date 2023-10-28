@@ -1,6 +1,8 @@
+'use client'
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import classNames from "classnames";
 
 const navigation = [
   { name: "Ігри", href: "/", current: false },
@@ -8,10 +10,6 @@ const navigation = [
   { name: "Правила", href: "/rules", current: false },
   { name: "Admin", href: "/admin", current: false },
 ];
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
 
 export default function Example() {
   return (

@@ -1,6 +1,5 @@
+"use client";
 import React, { useTransition, useState } from "react";
-import Layout from "../../components/layout/layout";
-import Head from "next/head";
 import TabButton from "../../components/admin/tab-button/tab-button";
 import GamesTab from "../../components/admin/games-tab/games-tab";
 import MastersTab from "../../components/admin/masters-tab/masters-tab";
@@ -17,11 +16,7 @@ export default function AdminPage({}) {
   }
 
   return (
-    <Layout>
-      <Head>
-        <title>RPG-BC Admin</title>
-      </Head>
-
+    <>
       <div className="flex gap-1">
         <TabButton
           isActive={tab === "games"}
@@ -53,6 +48,6 @@ export default function AdminPage({}) {
         {tab === "masters" && <MastersTab />}
         {tab === "rules" && <RulesTab />}
       </div>
-    </Layout>
+    </>
   );
 }
