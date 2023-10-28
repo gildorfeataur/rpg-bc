@@ -1,9 +1,9 @@
 "use client";
 import React, { useTransition, useState } from "react";
-import TabButton from "../../components/admin/tab-button/tab-button";
-import GamesTab from "../../components/admin/games-tab/games-tab";
-import MastersTab from "../../components/admin/masters-tab/masters-tab";
-import RulesTab from "../../components/admin/rules-tab/rules-tab";
+import TabButton from "./tab-button/tab-button";
+import GamesTab from "./games-tab/games-tab";
+import MastersTab from "./masters-tab/masters-tab";
+import RulesTab from "./rules-tab/rules-tab";
 
 export default function AdminPage({}) {
   const [isPending, startTransition] = useTransition();

@@ -1,4 +1,4 @@
-import FormattedDate from "../../../date/date";
+import FormattedDate from "../../../../components/date/date";
 import AdminTable from "../../admin-table/admin-table";
 
 export default function GamesTable({ ...props }) {
