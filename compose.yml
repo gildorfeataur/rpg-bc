@@ -3,9 +3,6 @@ services:
     container_name: backend
     build:
       context: ./backend
-    volumes:
-      - ./backend:/usr/src/app
-      - /usr/src/app/node_modules
     networks:
       - react-express
     ports:
@@ -15,15 +12,12 @@ services:
     container_name: frontend
     build:
       context: ./frontend
-    volumes:
-      - ./frontend:/usr/src/app
-      - /usr/src/app/node_modules
     networks:
       - react-express
     depends_on:
       - backend
     ports:
-      - 5000:5000
+      - 8080:8080
 networks:
   react-express:
     driver: bridge
