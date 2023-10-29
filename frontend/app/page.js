@@ -1,7 +1,7 @@
 import GamesPage from "./home-page"
 
 async function getPosts() {
-  const endpoint = "http://backend:3000";
+  const endpoint = "http://localhost:3000";
   const res = await fetch(`${endpoint}/api/games`)
   const games = await res.json()
   return games
