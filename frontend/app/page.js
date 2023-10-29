@@ -1,4 +1,4 @@
-import HomePage from "./home-page"
+import GamesPage from "./home-page"
 
 async function getPosts() {
   const endpoint = "http://localhost:3000";
@@ -9,5 +9,5 @@ async function getPosts() {
 
 export default async function Page() {
   const recentPosts = await getPosts()
-  return <HomePage data={recentPosts}/>
+  return <GamesPage data={recentPosts}/>
 }

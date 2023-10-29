@@ -1,6 +1,3 @@
-"use client";
-import React, { useState } from "react";
-import Paginator from "../../components/paginator/paginator-controler";
 import Image from "next/image";
 import imgPlaceholder from "../../public/avatars/dice.jpg";
 import iconInstagram from "../../public/icons/instagram.svg";
@@ -19,15 +16,7 @@ export async function getMasters() {
 
 export default async function Masters({}) {
   let masters = await getMasters();
-  const itemsPerPage = 10;
-  // const [pageCollection, setPageCollection] = useState(
-  //   masters.slice(0, itemsPerPage)
-  // );
-  const pageCollection = masters.slice(0, itemsPerPage);
 
-  const pageChangeHandler = (start, end) => {
-    setPageCollection(masters.slice(start, end + 1));
-  };
   return (
     <div className="mx-auto px-2 sm:px-6 lg:px-8">
       <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
@@ -35,7 +24,7 @@ export default async function Masters({}) {
       </h2>
 
       <div className="mx-auto my-16 max-w-5xl max-h-310 grid grid-cols-3 grid-rows-2 gap-12">
-        {pageCollection.map((item) => (
+        {masters.map((item) => (
           <div key={item._id} className="flex flex-col items-center gap-4 h-72">
             <Image
               className="rounded-full border bg-slate-200 border-slate-500"
@@ -100,12 +89,6 @@ export default async function Masters({}) {
           </div>
         ))}
       </div>
-
-      <Paginator
-        pageChangeHandler={pageChangeHandler}
-        itemsPerPage={itemsPerPage}
-        allItemsCount={masters.length}
-      />
     </div>
   );
 }

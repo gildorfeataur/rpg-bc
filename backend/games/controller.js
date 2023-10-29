@@ -1,10 +1,22 @@
-//GAMES
+const objectId = require("mongodb").ObjectId;
 
 exports.getGames = async (req, res) => {
   const collection = req.app.locals.games;
   try {
-    const users = await collection.find({}).toArray();
-    res.send(users);
+    const result = await collection.find({}).toArray();
+    res.send(result);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+}
+
+exports.getGame = async (req, res) => {
+  const collection = req.app.locals.games;
+  try {
+    const id = new objectId(req.params.id);
+    const result = await collection.findOne({ _id: id });
+    res.send(result);
   } catch (err) {
     console.log(err);
     res.sendStatus(500);

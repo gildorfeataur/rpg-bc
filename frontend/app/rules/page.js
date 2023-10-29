@@ -1,5 +1,3 @@
-import Paginator from "../../components/paginator/paginator-controler";
-
 async function getRules() {
   const endpoint = "http://localhost:3000";
   const response = await fetch(`${endpoint}/api/rules`, {
@@ -10,14 +8,8 @@ async function getRules() {
   return rules;
 }
 
-// async function pageChangeHandler(start, end) {
-//   pageCollection = await rules.slice(start, end + 1);
-// }
-
 export default async function Rules() {
   const rules = await getRules();
-  const itemsPerPage = 10;
-  let pageCollection = rules.slice(0, itemsPerPage);
 
   return (
     <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -25,7 +17,7 @@ export default async function Rules() {
         Правила для настільних ігор/систем
       </h2>
       <div className="p-6 grid grid-flow-row auto-rows-max hover:auto-rows-min">
-        {pageCollection.map((item) => (
+        {rules.map((item) => (
           <div
             className="flex items-center border-t-2 py-4 h-40"
             key={item._id}
@@ -75,12 +67,6 @@ export default async function Rules() {
           </div>
         ))}
       </div>
-
-      {/* <Paginator
-        pageChangeHandler={pageChangeHandler}
-        itemsPerPage={itemsPerPage}
-        allItemsCount={rules.length}
-      /> */}
     </div>
   );
 }

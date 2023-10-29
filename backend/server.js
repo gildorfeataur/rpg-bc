@@ -34,6 +34,7 @@ app.use(express.static(`${__dirname}`));
 
 // //GAMES
 app.get("/api/games", jsonParser, gamesController.getGames);
+app.get("/api/games/:id", jsonParser, gamesController.getGame);
 app.post("/api/games", jsonParser, gamesController.addGame);
 app.delete("/api/games/:id", gamesController.deleteGame);
 
