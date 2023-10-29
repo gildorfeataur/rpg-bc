@@ -5,7 +5,7 @@ import MastersEditModal from "./masters-edit-modal/masters-edit-modal";
 import DeleteModal from "../delete-modal/delete-modal";
 
 export default function MastersTab() {
-  const endpoint = "http://localhost:3000";
+  const endpoint = "http://83.229.84.160:3000";
   const [masters, setMasters] = useState([]);
   const [master, setMaster] = useState("");
 
