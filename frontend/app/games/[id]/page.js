@@ -1,8 +1,7 @@
 import React from "react";
-import Head from "next/head";
 
 export async function generateStaticParams() {
-  const posts = await fetch('http://83.229.84.160:3000/api/games/').then((res) => res.json())
+  const posts = await fetch('http://172.17.0.1:3000/api/games/').then((res) => res.json())
 
   return posts.map((post) => ({
     id: post.id,
@@ -10,7 +9,7 @@ export async function generateStaticParams() {
 }
 
 export async function getPost(params) {
-  const res = await fetch(`http://83.229.84.160:3000/api/games/${params.id}`)
+  const res = await fetch(`http://172.17.0.1:3000/api/games/${params.id}`)
   const post = await res.json()
 
   return post

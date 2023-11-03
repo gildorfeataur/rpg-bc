@@ -1,7 +1,7 @@
 import GamesPage from "./home-page"
 
 async function getPosts() {
-  const endpoint = "http://83.229.84.160:3000";
+  const endpoint = "http://172.17.0.1:3000";
   const res = await fetch(`${endpoint}/api/games`)
   const games = await res.json()
   return games
