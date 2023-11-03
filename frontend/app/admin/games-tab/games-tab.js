@@ -3,7 +3,7 @@ import GamesForm from "./games-form/games-form";
 import GamesTable from "./games-table/games-table";
 
 export default function GamesTab() {
-  const endpoint = "http://172.17.0.1:3000";
+  const endpoint = "http://localhost:3000";
   const [games, setGames] = useState([]);
   const [masters, setMasters] = useState([]);
   const [rules, setRules] = useState([]);

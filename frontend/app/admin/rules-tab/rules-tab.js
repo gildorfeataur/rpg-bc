@@ -5,7 +5,7 @@ import RulesEditModal from "./rules-edit-modal/rules-edit-modal";
 import DeleteModal from "../delete-modal/delete-modal";
 
 export default function RulesTab() {
-  const endpoint = "http://172.17.0.1:3000";
+  const endpoint = "http://localhost:3000";
   const [rules, setRules] = useState([]);
   const [rule, setRule] = useState("");
 

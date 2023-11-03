@@ -1,5 +1,5 @@
 async function getRules() {
-  const endpoint = "http://172.17.0.1:3000";
+  const endpoint = "http://localhost:3000";
   const response = await fetch(`${endpoint}/api/rules`, {
     method: "GET",
     headers: { Accept: "application/json" },
