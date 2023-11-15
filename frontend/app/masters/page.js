@@ -5,7 +5,7 @@ import iconFacebook from "../../public/icons/facebook.svg";
 import iconTelegram from "../../public/icons/telegram.svg";
 
 export async function getMasters() {
-  const endpoint = "http://localhost:3000";
+  const endpoint = "http://45.91.169.110:3000";
   const response = await fetch(`${endpoint}/api/masters`, {
     method: "GET",
     headers: { Accept: "application/json" },
