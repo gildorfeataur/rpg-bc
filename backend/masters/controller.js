@@ -88,7 +88,7 @@ exports.deleteMaster = async (req, res) => {
 
 exports.storageConfig = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, `public/${avatarsFolder}`);
+    cb(null, `../frontend/public/${avatarsFolder}`);
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);

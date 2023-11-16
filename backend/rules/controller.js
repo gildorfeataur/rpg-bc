@@ -85,7 +85,7 @@ exports.deleteRule = async (req, res) => {
 
 exports.storageConfig = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, `public/${rulesFolder}`);
+    cb(null, `../frontend/public/${rulesFolder}`);
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);
