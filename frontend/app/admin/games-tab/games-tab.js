@@ -62,7 +62,7 @@ export default function GamesTab() {
   }
 
   async function deleteGame(e) {
-    let id = e.target.getAttribute("data-game-id");
+    let id = e.target.getAttribute("data-id");
     const response = await fetch(`${endpoint}/api/games/` + id, {
       method: "DELETE",
       headers: { Accept: "application/json" },
