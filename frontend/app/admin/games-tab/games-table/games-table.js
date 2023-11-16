@@ -6,35 +6,35 @@ export default function GamesTable({ ...props }) {
     <AdminTable caption={props.caption}>
       <thead>
         <tr>
-          <th className="border text-left p-1.5">Назва</th>
-          <th className="border text-left p-1.5">Дата\час</th>
-          <th className="border text-left p-1.5">Тип</th>
-          <th className="border text-left p-1.5">Правила</th>
-          <th className="border text-left p-1.5">Майстер</th>
-          <th className="border text-left p-1.5">Гравців</th>
-          <th className="border text-left p-1.5">Опис</th>
-          <th className="border text-left p-1.5">Ціна</th>
-          <th className="border text-left p-1.5">Місце</th>
-          <th className="border text-left p-1.5">Опції</th>
+          <th className="border text-left px-2">Назва</th>
+          <th className="border text-left px-2">Дата\час</th>
+          <th className="border text-left px-2">Тип</th>
+          <th className="border text-left px-2">Правила</th>
+          <th className="border text-left px-2">Майстер</th>
+          <th className="border text-left px-2">Гравців</th>
+          <th className="border text-left px-2">Опис</th>
+          <th className="border text-left px-2">Ціна</th>
+          <th className="border text-left px-2">Місце</th>
+          <th className="border text-left px-2">Опції</th>
         </tr>
       </thead>
       <tbody>
         {props.data.map((item) => (
           <tr key={item._id} className="hover:bg-slate-100">
-            <td className="border p-1.5">{item.title}</td>
-            <td className="border p-1.5"><FormattedDate dateString={item.date}/></td>
-            <td className="border p-1.5">{item.type}</td>
-            <td className="border p-1.5">{item.rules}</td>
-            <td className="border p-1.5">{item.master}</td>
-            <td className="border p-1.5">
+            <td className="border px-2">{item.title}</td>
+            <td className="border px-2"><FormattedDate dateString={item.date}/></td>
+            <td className="border px-2">{item.type}</td>
+            <td className="border px-2">{item.rules}</td>
+            <td className="border px-2">{item.master}</td>
+            <td className="border px-2">
               {item.minPlayersCount} - {item.maxPlayersCount}
             </td>
-            <td className="border p-1.5">{item.description}</td>
-            <td className="border p-1.5">{item.cost}</td>
-            <td className="border p-1.5">{item.place}</td>
-            <td className="border p-1.5">
-            <div className="flex w-full justify-around gap-1">
-                <button
+            <td className="border px-2">{item.description}</td>
+            <td className="border px-2">{item.cost}</td>
+            <td className="border px-2">{item.place}</td>
+            <td className="border p-1">
+            <div className="flex justify-around gap-1">
+                {/* <button
                   type="button"
                   data-id={item._id}
                   onClick={props.editModalShow}
@@ -54,7 +54,7 @@ export default function GamesTable({ ...props }) {
                       d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
                     />
                   </svg>
-                </button>
+                </button> */}
 
                 <button
                   type="button"

@@ -51,8 +51,8 @@ export default function MastersTable({ ...props }) {
                 <span className="text-gray-400">немає опису</span>
               )}
             </td>
-            <td className="border py-1">
-              <div className="flex w-full justify-around gap-1">
+            <td className="border p-1">
+              <div className="flex justify-around gap-1">
                 <button
                   type="button"
                   data-id={item._id}
