@@ -10,3 +10,5 @@ RUN npm ci
 COPY . .
 
 CMD [ "npm", "run", "start" ]
+
+EXPOSE 3000
