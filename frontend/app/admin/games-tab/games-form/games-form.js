@@ -38,7 +38,7 @@ export default function GamesForm({...props}) {
               id="type"
               required
             >
-              <option value="" style={{ color: "#888" }}>
+              <option value="">
                 Оберіть тип
               </option>
               <option>Настільна</option>
@@ -92,6 +92,7 @@ export default function GamesForm({...props}) {
                 name="minPlayersCount"
                 min={1}
                 required
+                placeholder="Мінімум гравців"
               />
               <span className="flex items-center">-</span>
               <input
@@ -100,6 +101,7 @@ export default function GamesForm({...props}) {
                 name="maxPlayersCount"
                 min={1}
                 required
+                placeholder="Максимум гравців"
               />
             </div>
           </div>
@@ -128,6 +130,7 @@ export default function GamesForm({...props}) {
               name="cost"
               id="cost"
               required
+              placeholder="Введіть число в гривнях"
             />
           </div>
 
@@ -151,6 +154,7 @@ export default function GamesForm({...props}) {
             className="form-input mt-0.5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             name="description"
             id="description"
+            placeholder="Опис івента (якщо потрібен)"
           />
         </div>
 

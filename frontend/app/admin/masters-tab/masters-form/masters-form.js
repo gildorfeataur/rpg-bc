@@ -21,6 +21,7 @@ export default function MastersForm({ onSubmit }) {
           name="name"
           id="name"
           required
+          placeholder="Ім'я/нікнейм майстра"
         />
       </div>
 
@@ -32,6 +33,7 @@ export default function MastersForm({ onSubmit }) {
           name="telegram"
           id="telegram"
           required
+          placeholder="https://t.me/NickName"
         />
       </div>
 
@@ -42,6 +44,7 @@ export default function MastersForm({ onSubmit }) {
           className="form-input mt-0.5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
           name="facebook"
           id="facebook"
+          placeholder="Лінк на фейсбук-профіль"
         />
       </div>
 
@@ -52,6 +55,7 @@ export default function MastersForm({ onSubmit }) {
           className="form-input mt-0.5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
           name="instagram"
           id="instagram"
+          placeholder="Лінк на інстаграм"
         />
       </div>
 
@@ -61,6 +65,7 @@ export default function MastersForm({ onSubmit }) {
           type="text"
           className="form-input mt-0.5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
           name="description"
+          placeholder="Якась інфа (опціонально)"
         />
       </div>
 
