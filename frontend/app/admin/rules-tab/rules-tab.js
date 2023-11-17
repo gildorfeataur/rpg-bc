@@ -4,8 +4,7 @@ import RulesForm from "./rules-form/rules-form";
 import RulesEditModal from "./rules-edit-modal/rules-edit-modal";
 import DeleteModal from "../delete-modal/delete-modal";
 
-export default function RulesTab() {
-  const endpoint = "http://localhost:3000";
+export default function RulesTab({endpoint}) {
   const [rules, setRules] = useState([]);
   const [rule, setRule] = useState("");
 

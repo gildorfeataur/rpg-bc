@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import GamesForm from "./games-form/games-form";
 import GamesTable from "./games-table/games-table";
 
-export default function GamesTab() {
-  const endpoint = "http://localhost:3000";
+export default function GamesTab({endpoint}) {
   const [games, setGames] = useState([]);
   const [masters, setMasters] = useState([]);
   const [rules, setRules] = useState([]);

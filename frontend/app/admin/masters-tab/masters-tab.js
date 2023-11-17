@@ -4,8 +4,7 @@ import MastersForm from "./masters-form/masters-form";
 import MastersEditModal from "./masters-edit-modal/masters-edit-modal";
 import DeleteModal from "../delete-modal/delete-modal";
 
-export default function MastersTab() {
-  const endpoint = "http://localhost:3000";
+export default function MastersTab({endpoint}) {
   const [masters, setMasters] = useState([]);
   const [master, setMaster] = useState("");
 
