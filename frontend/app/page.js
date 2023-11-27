@@ -5,7 +5,7 @@ import Image from "next/image";
 import imgPlaceholder from "../public/avatars/dice.jpg";
 
 async function getPosts() {
-  const endpoint = "http://localhost:3000";
+  const endpoint = "http://46.101.101.96:3000";
   const res = await fetch(`${endpoint}/api/games`)
   const games = await res.json()
   return games
