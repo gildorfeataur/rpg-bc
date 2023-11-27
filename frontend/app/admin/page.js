@@ -8,7 +8,7 @@ import RulesTab from "./rules-tab/rules-tab";
 export default function AdminPage({}) {
   const [isPending, startTransition] = useTransition();
   const [tab, setTab] = useState("games");
-  const endpoint = "http://45-91-169-110.cloud-xip.com:3000"
+  const endpoint = "http://localhost:3000"
 
   function selectTab(nextTab) {
     startTransition(() => {
