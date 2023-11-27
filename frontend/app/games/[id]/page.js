@@ -1,7 +1,7 @@
 import React from "react";
 
 export async function generateStaticParams() {
-  const posts = await fetch("http://localhost:3000/api/games/").then((res) =>
+  const posts = await fetch("http://46.101.101.96:3000/api/games/").then((res) =>
     res.json()
   );
 
@@ -11,7 +11,7 @@ export async function generateStaticParams() {
 }
 
 export async function getPost(params) {
-  const res = await fetch(`http://localhost:3000/api/games/${params.id}`);
+  const res = await fetch(`http://46.101.101.96:3000/api/games/${params.id}`);
   const post = await res.json();
 
   return post;
